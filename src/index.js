@@ -1,17 +1,28 @@
 //!  Con "npm run dev" , Nodemon arranca el servidor y lo mantiene en marcha, y lo reinicia al detectar cambios 
 
-import express from 'express';              //* Importa el framework Express para poder crear el servidor web y gestionar rutas
 import dotenv from 'dotenv';                //* Importa la librería dotenv para poder leer variables de entorno desde un archivo .env
+import express from 'express';              //* Importa el framework Express para poder crear el servidor web y gestionar rutas
+import cors from 'cors';
 
 dotenv.config()                             //* Carga las variables del archivo .env y las introduce en el objeto global 'process.env'
 
 const app = express();                      //* Inicializa la aplicación de Express para empezar a configurar el servidor
+
+//! Middlewares
+app.use(cors());
 app.use(express.json());                    //* Define el puerto: usa el valor del archivo .env (process.env.PORT) o, si no existe, el puerto 3000 por defecto
+app.use(express.urlencoded());              //* Permite leer el body de los POST en formularios 
 
 const PORT = process.env.PORT || 3000;      //* Pone al servidor a escuchar peticiones en el puerto definido y ejecuta una función cuando arranca con éxito
 app.listen(PORT, () => {                    
     console.log(`Servidor escuchando en el puerto ${PORT} `)
 })                                          //* Muestra un mensaje en la consola de la terminal indicando que el servidor ya está funcionando
+
+app.get("/",(req,res) => {
+    res.send("<h1>Puta Vida</h1>")
+})
+
+
 
 
 
