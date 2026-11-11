@@ -1,10 +1,10 @@
 
 
 import { Router} from "express";
-import usuarioRouter from "./usuarios.api.js";
-import trabajadorRouter from "./trabajador.api.js";
+import usuarioRouter from "./usuarios.router.js";
+import trabajadorRouter from "./trabajador.router.js";
 import ofertasRouter from "./oferta.api.js";
-import empresaRouter from "./empresa.api.js";
+import empresaRouter from "./empresa.router.js";
 
 const router = Router();
 
