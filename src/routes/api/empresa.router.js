@@ -1,7 +1,7 @@
 
 
 import { Router} from "express";
-import { empresa} from "../../models.js";
+import { empresas } from "../../models/index.js";
 
 const router = Router();
 

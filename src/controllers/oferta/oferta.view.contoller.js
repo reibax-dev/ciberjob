@@ -1,7 +1,5 @@
 
-import { ofertas} from "../../models.js";  //* donde se almacenan los datos del array
-
-
+import { ofertas } from "../../models/index.js";
 
 
 //? ++++ C ++++
@@ -23,21 +21,25 @@ const create = (req, res) => {
         fecha
     }
     ofertas.push(oferta);
-    res.json({data: oferta})
+    res.redirect("./");
+}
+
+const createForm = (req, res) => {
+    res.render("oferta/create")
 }
 
 //!? ++++ R +++++
 
 //! ENDPOINT lista de datos
 const getAll = (req,res) => {
-    res.json ({ data: ofertas})
+    res.render("oferta/list", {ofertas})
 }
 
 //! ENDPOINT dato individual
 const getById = (req, res) => {
     const id = parseInt(req.params.id);
     const oferta = ofertas.find ( o => o.id === id)
-    res.json({ data: oferta})
+    res.render("oferta/show", {oferta});
 }
 
 //? ++++ U ++++
@@ -56,25 +58,13 @@ const update = (req,res) => {
     oferta.salario = salario;
     oferta.ubicacion = ubicacion;
     oferta.fecha = fecha;
-    res.json({data: oferta})
+    res.redirect("./");
 }
 
-
-//! ENDPOINT para cambiar parte del dato
-const modify = (req,res) => {
+const updateForm = (req, rest) => {
     const id = parseInt(req.params.id);
-    const oferta = ofertas.find ( o => o.id === id)
-    const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = req.body;
-
-    oferta.nombre = nombre || oferta.nombre;
-    oferta.id_categoria = id_categoria || oferta.id_categoria;
-    oferta.id_empresa = id_empresa || oferta.id_empresa;
-    oferta.descripcion = descripcion || oferta.descripcion;
-    oferta.id_modalidad = id_modalidad || oferta.id_modalidad;
-    oferta.salario = salario || oferta.salario;
-    oferta.ubicacion = ubicacion || oferta.ubicacion;
-    oferta.fecha = fecha || oferta.fecha;
-    res.json({data: oferta})
+    const oferta = ofertas.find ( u => u.id === id);
+    res.render("oferta/update", {oferta});
 }
 
 //? ++++ D ++++
@@ -83,7 +73,7 @@ const remove = (req,res) => {
     const id = parseInt(req.params.id);
     const index = ofertas.findIndex(o => o.id === id);
     const [oferta] = ofertas.splice(index, 1);
-    res.json({data: oferta})
+    res.redirect("./");
 }
 
 
@@ -92,6 +82,7 @@ export default {
     getAll,
     getById,
     update,
-    modify,
+    createForm,
+    updateForm,
     remove
 };

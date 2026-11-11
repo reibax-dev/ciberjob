@@ -113,12 +113,3 @@ export const empresas = [
 export const trabajadores = [
   { id_trabajador: 1, id_usuario: 4, cv: "/uploads/cv/ana_martinez_cv.pdf" }
 ];
- 
-
-export {
-    ofertas,
-    categorias,
-    modalidades,
-    usuarios,
-    empresas
-}

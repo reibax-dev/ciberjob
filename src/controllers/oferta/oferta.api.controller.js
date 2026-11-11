@@ -1,6 +1,6 @@
 
 
-import { ofertas} from "../../models.js";  //* donde se almacenan los datos del array
+import { ofertas } from "../../models/index.js";
 
 
 

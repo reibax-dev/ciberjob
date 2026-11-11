@@ -1,5 +1,5 @@
 import { Router} from "express";
-import ofertaApiControler from "../../controllers/oferta/oferta.api.controller";
+import ofertaViewControler from "../../controllers/oferta/oferta.view.contoller.js";
 
 const router = Router();
 
@@ -9,29 +9,29 @@ const router = Router();
 //! ENDPOINT crear dato
 
 //* Vista de formulario 
-router.get("/new", ofertaApiControler.createForm);
+router.get("/new", ofertaViewControler.createForm);
 
 //! Creación de oferta
-router.post("/", ofertaApiControler.create);
+router.post("/", ofertaViewControler.create);
 
 //!? ++++ R +++++
 
 //! ENDPOINT lista de datos
-router.get("/", ofertaApiControler.getAll);
+router.get("/", ofertaViewControler.getAll);
 
 //! ENDPOINT dato individual
-router.get("/:id", ofertaApiControler.getById);
+router.get("/:id", ofertaViewControler.getById);
 
 //? ++++ U ++++
 
 //* Vista de actualizacion nde usuario
-router.get("/:id/edit", ofertaApiControler.updateForm);
+router.get("/:id/edit", ofertaViewControler.updateForm);
 //! ENDPOINT para cambiar dato por completo
-router.post("/:id/edit", ofertaApiControler.update);
+router.post("/:id/edit", ofertaViewControler.update);
 
 //? ++++ D ++++
 
-router.post("/:id/delete", ofertaApiControler.remove);
+router.post("/:id/delete", ofertaViewControler.remove);
 
 
 export default router;

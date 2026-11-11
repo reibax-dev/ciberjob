@@ -1,5 +1,5 @@
 import { Router} from "express";
-import ofertaRouter from "./view/oferta.router.js";
+import ofertaApiControler from "../../controllers/oferta/oferta.api.controller.js";
 
 const router = Router();
 

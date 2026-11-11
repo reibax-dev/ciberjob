@@ -1,7 +1,7 @@
 
 
 import { Router} from "express";
-import { trabajadores} from "../../models.js";
+import { trabajadores } from "../../models/index.js";
 
 const router = Router();
 
