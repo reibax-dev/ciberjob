@@ -3,6 +3,7 @@
     <p>Email: <%= usuario.email %></p>
     <p>Admin: <%= usuario.admin %></p>
     <p>Teléfono: <%= usuario.telefono %></p>
+    <p>Admin: <%= usuario.admin ? "Sí" : "No" %></p>
     <a href="/usuario/<%=usuario.id_usuario%>">Visitar</a>
     <form method="post" action="/usuario/<%=usuario.id_usuario%>/delete">
         <button>Eliminar</button>
