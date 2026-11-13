@@ -4,6 +4,7 @@ import dotenv from 'dotenv';                //* Importa la librería dotenv para
 import express from 'express';              //* Importa el framework Express para poder crear el servidor web y gestionar rutas
 import cors from 'cors';
 import router from './routes/router.js';
+import sequelize from './config/db.js';
 
 dotenv.config()                             //* Carga las variables del archivo .env y las introduce en el objeto global 'process.env'
 
