@@ -12,9 +12,13 @@ const app = express();                      //* Inicializa la aplicación de Exp
 //! Middlewares
 app.use(cors());
 app.use(express.json());                    //* Define el puerto: usa el valor del archivo .env (process.env.PORT) o, si no existe, el puerto 3000 por defecto
-app.use(express.urlencoded());              //* Permite leer el body de los POST en formularios 
-app.set("views","./src/views");
+app.use(express.urlencoded())               // permite leer el body de los POST en formularios
+app.use(express.static("public"));
+
+app.set("views", "./src/views");
 app.set("view engine", "ejs");
+
+app.use("/", router);
 
 const PORT = process.env.APP_PORT || 3000;      //* Pone al servidor a escuchar peticiones en el puerto definido y ejecuta una función cuando arranca con éxito
 
