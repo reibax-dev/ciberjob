@@ -25,10 +25,20 @@ const PORT = process.env.APP_PORT || 3000;      //* Pone al servidor a escuchar 
 
 app.use("/", router);
 
+async function starServer() {
+    try {
+        await sequelize.authenticate();
+        console.log ("conexion establecida con base de datos");
+        app.listen(PORT, () => {                    
+        console.log(`Servidor escuchando en el puerto ${PORT} `)
+    })                                          //* Muestra un mensaje en la consola de la terminal indicando que el servidor ya está funcionando
+    }catch (error) {
+        console.error( "No se ha podido conectar a la base de datos", error);
+        process.exit(1);
+    }
+}
+starServer ();
 
-app.listen(PORT, () => {                    
-    console.log(`Servidor escuchando en el puerto ${PORT} `)
-})                                          //* Muestra un mensaje en la consola de la terminal indicando que el servidor ya está funcionando
 
 
 
