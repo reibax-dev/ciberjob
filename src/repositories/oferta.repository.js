@@ -48,6 +48,25 @@ const update = async (id, data) => {
     }    
 };
 
+const modify = async (id, data) => {
+    // const id = parseInt(req.params.id);
+    const oferta = await Oferta.findByPk(id);
+    // const oferta = ofertas.find ( o => o.id === id)
+    const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = data;
+    if (!oferta) {
+        return null ;
+    }
+    oferta.nombre = nombre || oferta.nombre;
+    oferta.id_categoria = id_categoria || oferta.id_categoria;
+    oferta.id_empresa = id_empresa || oferta.id_empresa;
+    oferta.descripcion = descripcion || oferta.descripcion;
+    oferta.id_modalidad = id_modalidad || oferta.id_modalidad;
+    oferta.salario = salario || oferta.salario;
+    oferta.ubicacion = ubicacion || oferta.ubicacion;
+    oferta.fecha = fecha || oferta.fecha;
+    await oferta.save();
+    return oferta;
+}
 
 //? ++++ D ++++
 
@@ -73,5 +92,6 @@ export default {
     getAll,
     getById,
     update,
+    modify,
     remove
 };
