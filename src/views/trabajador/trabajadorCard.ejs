@@ -1,0 +1,10 @@
+<article class="user-card">
+    <h3><%= trabajador.id_usuario %></h3>
+    <p>Curriculum Vitae</p>
+    <p><%= trabajador.cv %></p>
+    <a href="/trabajador/<%=trabajador.id_usuario%>">Visitar</a>
+    <form method="post" action="/trabajador/<%=trabajador.id_usuario%>/delete">
+        <button>Eliminar</button>
+    </form>
+
+</article>
