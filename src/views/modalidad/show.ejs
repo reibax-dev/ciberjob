@@ -1,0 +1,11 @@
+<%- include('../layout/header'); -%>
+
+<% if(hero){%>
+    <%- include('tarjetaModalidad',{modalidad}) -%>
+
+<%}else{ %>
+    <p>No existe la modalidad</p>
+<%}%>
+
+    <a href="/modalidad">Volver</a>
+<%- include('../layout/footer'); -%>

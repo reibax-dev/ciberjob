@@ -1,0 +1,11 @@
+<%- include('../layout/header'); -%>
+
+<% if(hero){%>
+    <%- include('tarjetaCategoria',{categoria}) -%>
+
+<%}else{ %>
+    <p>No existe la categoria</p>
+<%}%>
+
+    <a href="/categoria">Volver</a>
+<%- include('../layout/footer'); -%>
