@@ -1,5 +1,7 @@
 
-import { Oferta } from "../../models/index.js";
+
+
+import ofertaRepository from "../../repositories/oferta.repository.js";
 
 
 //? ++++ C ++++
@@ -8,7 +10,7 @@ import { Oferta } from "../../models/index.js";
 const create = async (req, res) => {
     // const id = ofertas(ofertas.length - 1).id + 1;  // const id = ofertas.length ? ofertas[ofertas.length - 1].id + 1 : 1;
     const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = req.body;   
-    const oferta = await Oferta.create ({
+    const oferta = await ofertaRepository.create ({
         nombre,
         idCategoria: id_categoria,
         idEmpresa: id_empresa,
@@ -30,7 +32,7 @@ const createForm = (req, res) => {
 
 //! ENDPOINT lista de datos
 const getAll = async (req,res) => {
-    const ofertas = await Oferta.findAll();
+    const ofertas = await ofertaRepository.getAll();
     res.render("oferta/list", {ofertas})
 }
 
@@ -38,7 +40,7 @@ const getAll = async (req,res) => {
 const getById = async (req, res) => {
     const id = parseInt(req.params.id);
     // const oferta = ofertas.find ( o => o.id === id)
-    const oferta = await Oferta.findByPk(id)
+    const oferta = await ofertaRepository.getById(id);
     res.render("oferta/show", {oferta});
 }
 
@@ -48,18 +50,18 @@ const getById = async (req, res) => {
 const update = async (req,res) => {
     const id = parseInt(req.params.id);
     // const oferta = ofertas.find ( u => u.id === id)
-    const oferta = await Oferta.findByPk(id);
-    const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = req.body;
+    const oferta = await ofertaRepository.update(id, req.body);
+    // const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = req.body;
     if (oferta) {
-        oferta.nombre = nombre;
-        oferta.idCategoria = id_categoria;
-        oferta.idEmpresa = id_empresa;
-        oferta.descripcion = descripcion;
-        oferta.idModalidad = id_modalidad;
-        oferta.salario = salario;
-        oferta.ubicacion = ubicacion;
-        oferta.fecha = fecha;
-        await oferta.save();
+        // oferta.nombre = nombre;
+        // oferta.idCategoria = id_categoria;
+        // oferta.idEmpresa = id_empresa;
+        // oferta.descripcion = descripcion;
+        // oferta.idModalidad = id_modalidad;
+        // oferta.salario = salario;
+        // oferta.ubicacion = ubicacion;
+        // oferta.fecha = fecha;
+        // await oferta.save();
         res.redirect("/oferta/" + oferta.idOfertas);   
     } else {
         res.redirect("/oferta");
@@ -69,7 +71,7 @@ const update = async (req,res) => {
 const updateForm = async (req, res) => {
     const id = parseInt(req.params.id);
     // const oferta = ofertas.find ( u => u.id === id);
-    const oferta = await Oferta.findByPk(id); 
+    const oferta = await ofertaRepository.getById(id); 
     res.render("oferta/update", {oferta});
 }
 
@@ -78,10 +80,10 @@ const updateForm = async (req, res) => {
 const remove = async (req,res) => {
     const id = parseInt(req.params.id);
     // const index = ofertas.findIndex(o => o.id === id);
-    const oferta = await Oferta.findByPk(id);
-    if (oferta) {
-        await oferta.destroy()
-    }
+    const oferta = await ofertaRepository.remove(id);
+    // if (oferta) {
+    //     await oferta.destroy()
+    // }
     res.redirect("/oferta");
 }    
     // let oferta;
