@@ -7,13 +7,7 @@
 --  Para restaurar los datos sin borrar el volumen:
 --    docker compose exec -T db sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"' < init-db/02-seed.sql
 --
---  Contraseñas (hash bcrypt, 10 rondas):
---    admin           -> admin1234
---    resto usuarios  -> heroe1234
 -- =====================================================================
-
-
-
 
 BEGIN;
 

@@ -62,7 +62,7 @@ CREATE TABLE public.ofertas (
     id_empresa integer NOT NULL REFERENCES public.empresa (id_empresa),
     descripcion text NOT NULL,
     id_modalidad integer NOT NULL REFERENCES public.modalidades (id_modalidad),
-    salario money NOT NULL,
+    salario money NOT NULL,         /* numeric(10, 2) */
     ubicacion text NOT NULL,
     fecha date NOT NULL
 );

@@ -1,5 +1,8 @@
+import Oferta from "./oferta.model.js";
 
-export const ofertas = [
+
+
+const ofertas = [
   {
     id_ofertas: 1,
     nombre: "Analista SOC Junior",
@@ -46,7 +49,7 @@ export const ofertas = [
   }
 ];
 
-export const categorias = [
+const categorias = [
   {
     id_categoria: 1,
     nombre: "Ciberseguridad",
@@ -64,13 +67,13 @@ export const categorias = [
   }
 ];
 
-export const modalidades = [
+const modalidades = [
   { id_modalidad: 1, nombre: "Presencial" },
   { id_modalidad: 2, nombre: "Híbrido" },
   { id_modalidad: 3, nombre: "Remoto" }
 ];
 
-export const usuarios = [
+const usuarios = [
   {
     id_usuario: 1,
     nombre: "Admin Ciberjob",
@@ -105,11 +108,20 @@ export const usuarios = [
   }
 ];
 
-export const empresas = [
+const empresas = [
   { id_empresa: 1, id_usuario: 2, nombre: "TechSec Solutions S.L." },
   { id_empresa: 2, id_usuario: 3, nombre: "CloudDev España" }
 ];
 
-export const trabajadores = [
+const trabajadores = [
   { id_trabajador: 1, id_usuario: 4, cv: "/uploads/cv/ana_martinez_cv.pdf" }
 ];
+
+export {
+  Oferta,
+  categorias,
+  modalidades,
+  usuarios,
+  empresas,
+  trabajadores
+}
