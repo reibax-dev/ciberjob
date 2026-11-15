@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS public.usuarios
     PRIMARY KEY (id_usuario)
 );
 
-CREATE TABLE IF NOT EXISTS public.empresa
+CREATE TABLE IF NOT EXISTS public.empresas
 (
     id_empresa integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     id_usuario integer NOT NULL,

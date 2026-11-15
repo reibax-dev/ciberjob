@@ -24,4 +24,4 @@ const connection = new Sequelize(
         logging: LOGGING,
     }
 )
-export default sequelize
+export default connection;
