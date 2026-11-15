@@ -1,3 +1,9 @@
+
+BEGIN;
+
+TRUNCATE hero_powers, heroes, powers, users RESTART IDENTITY CASCADE;
+
+
 -- Categorías (IDs 1 al 4)
 INSERT INTO public.categorias (nombre, descripcion) VALUES
 ('Desarrollo de Software', 'Programación web, móvil, backend, frontend y arquitectura de sistemas.'),
@@ -51,3 +57,7 @@ INSERT INTO public.ofertas_trabajadores (id_ofertas, id_trabajador) VALUES
 (3, 3), -- Miguel (Data) aplica a Data Engineer
 (1, 3), -- Miguel (Data) aplica a Desarrollador Backend
 (4, 4); -- Ana Belén (Marketing) aplica a Especialista SEO
+
+
+
+COMMIT;
