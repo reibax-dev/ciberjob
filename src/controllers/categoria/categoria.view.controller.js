@@ -9,7 +9,7 @@ import categoriaRepository from "../../repositories/categoria.repository.js";
 const create = async (req,res)=>{
 
     const categoria = await categoriaRepository.create({...req.body,userId:1})
-    res.redirect("/categoria/"+categoria.categoriaId);
+    res.redirect("/categoria/"+categoria.idCategoria);
 }
 
 const createForm = (req,res)=>{
@@ -20,7 +20,7 @@ const createForm = (req,res)=>{
 // endpoint lista de datos
 const getAll = async(req, res) => {
     const categoria = await categoriaRepository.getAll();
-    res.render("categoria/list",{categoriaes})
+    res.render("categoria/list",{categoria})
 };
 
 // endpoint dato individual
