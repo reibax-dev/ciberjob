@@ -1,7 +1,7 @@
 
 
 import { Router} from "express";
-import usuarioRouter from "./usuarios.router.js";
+import usuarioRouter from "./usuario.router.js";
 import trabajadorRouter from "./trabajador.router.js";
 import ofertasRouter from "./oferta.api.js";
 import empresaRouter from "./empresa.router.js";
