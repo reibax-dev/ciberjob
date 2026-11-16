@@ -8,7 +8,7 @@ import categoriaRepository from "../../repositories/categoria.repository.js";
 // endpoint para crear dato
 const create = async (req,res)=>{
 
-    const categoria = await categoriaRepository.create({...req.body,userId:1})
+    const categoria = await categoriaRepository.create(req.body)
     res.redirect("/categoria/"+categoria.idCategoria);
 }
 

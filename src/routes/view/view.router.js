@@ -3,6 +3,7 @@ import usuarioRouter from "./usuario.router.js";
 import ofertaRouter from "./oferta.router.js";
 import categoriaRouter from "./categoria.router.js";
 import modalidadRouter from "./modalidad.router.js";
+import trabajadoresRouter from "./trabajadores.router.js";
 
 
 const router  = Router();
@@ -15,6 +16,7 @@ router.use("/usuario",usuarioRouter);
 router.use("/oferta", ofertaRouter);
 router.use("/categoria",categoriaRouter);
 router.use("/modalidad",modalidadRouter);
+router.use("/trabajador",trabajadoresRouter);
 
 
 export default router;
