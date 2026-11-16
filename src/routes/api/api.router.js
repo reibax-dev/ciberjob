@@ -1,7 +1,7 @@
 
 
 import { Router} from "express";
-import usuarioRouter from "./usuarios.router.js";
+import usuarioRouter from "./usuario.router.js";
 import trabajadorRouter from "./trabajador.router.js";
 import ofertasRouter from "./oferta.api.js";
 import empresaRouter from "./empresa.router.js";
@@ -17,7 +17,7 @@ router.get("/", (req,res) => {
 
 router.use("/usuario", usuarioRouter);
 router.use("/trabajador", trabajadorRouter);
-router.use("/ofertas", ofertasRouter);
+router.use("/oferta", ofertasRouter);
 router.use("/empresa", empresaRouter);
 router.use("/categoria", categoriaRouter);
 router.use("/modalidad", modalidadRouter);

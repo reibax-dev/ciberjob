@@ -13,7 +13,7 @@ const app = express();                      //* Inicializa la aplicación de Exp
 //! Middlewares
 app.use(cors());
 app.use(express.json());                    //* Define el puerto: usa el valor del archivo .env (process.env.PORT) o, si no existe, el puerto 3000 por defecto
-app.use(express.urlencoded())               // permite leer el body de los POST en formularios
+app.use(express.urlencoded())               //* permite leer el body de los POST en formularios
 app.use(express.static("public"));
 
 app.set("views", "./src/views");
@@ -25,10 +25,31 @@ const PORT = process.env.APP_PORT || 3000;      //* Pone al servidor a escuchar 
 
 app.use("/", router);
 
+async function startServer() {
+    const maxIntentos = 5
+    let attempts = maxIntentos;                            //* Intentos de conexion
+    while ( attempts) {         
+    try {
+        await sequelize.authenticate();
+        console.log ("conexion establecida con base de datos");
+        app.listen(PORT, () => {                    
+        console.log(`Servidor escuchando en el puerto ${PORT} `)
+    })                                          //* Muestra un mensaje en la consola de la terminal indicando que el servidor ya está funcionando
+        break;
+    }catch (error) {
+        console.error( `Intento ${maxIntentos - attempts} , No se ha podido conectar a la base de datos`, error);
+        // process.exit(1);
+    }
+        attempts--; 
+        await new Promise ((resolve, reject) => setTimeout (() => {resolve()},1000)); //* Se crea una nueva promesa que se va a reslover cuando termine el timeout, reintenta 
+    }
+    if ( attempts === 0) {
+        console.error (`No se pudo conectar a la base de datos en ${maxIntentos} intentos`);
+        process.exit(1);
+    }
+}
+startServer ();
 
-app.listen(PORT, () => {                    
-    console.log(`Servidor escuchando en el puerto ${PORT} `)
-})                                          //* Muestra un mensaje en la consola de la terminal indicando que el servidor ya está funcionando
 
 
 
