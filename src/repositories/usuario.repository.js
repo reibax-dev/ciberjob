@@ -34,12 +34,12 @@ const getById = async (id) => {
 // ---------------- U (Update) -----------------------------------
 // endpoint para cambiar dato por completo
 const update =async (id, data)=>{
-    const {username,email,password,telefono,admin} = data;
+    const {nombre,email,contrasenia,telefono,admin} = data;
     const user  = await Usuario.findByPk(id);
     if(user){
-        user.username = username;
+        user.nombre = nombre;
         user.email = email;
-        user.password = password;
+        user.contrasenia = contrasenia;
         user.telefono = telefono
         user.admin = admin;
         await user.save();
@@ -51,14 +51,14 @@ const update =async (id, data)=>{
 }
 
 const modify = async (id,data)=>{
-    const {username,email,password,telefono,admin} = data;
+    const {nombre,email,contrasenia,telefono,admin} = data;
     const user  = await Usuario.findByPk(id);
     if(!user){
         return null;
     }
-    user.username = username || user.username;
+    user.nombre = nombre || user.nombre;
     user.email = email || user.email;
-    user.password = password || user.password;
+    user.contrasenia = contrasenia || user.contrasenia;
     user.telefono = telefono || user.telefono;
     user.admin = admin || user.admin;
     await user.save();
@@ -71,7 +71,7 @@ const modify = async (id,data)=>{
 // ------------------------ D (Delete)------------
 
 const remove =async (id)=>{
-    const user = await User.findByPk(id);
+    const user = await Usuario.findByPk(id);
     if(user){
         await user.destroy();
         return user;
