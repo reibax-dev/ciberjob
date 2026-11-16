@@ -1,5 +1,5 @@
 -- =====================================================================
---  Agencia de Superhéroes de Segunda — Datos de ejemplo
+--  Agencia de buscador de empleo ciberjob  — Datos de ejemplo
 --
 --  Se ejecuta AUTOMÁTICAMENTE después de 01-schema.sql la primera vez
 --  que arranca el contenedor de PostgreSQL.
@@ -7,95 +7,64 @@
 --  Para restaurar los datos sin borrar el volumen:
 --    docker compose exec -T db sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"' < init-db/02-seed.sql
 --
---  Contraseñas (hash bcrypt, 10 rondas):
---    admin           -> admin1234
---    resto usuarios  -> heroe1234
 -- =====================================================================
 
 BEGIN;
 
-TRUNCATE hero_powers, heroes, powers, users RESTART IDENTITY CASCADE;
+TRUNCATE public.ofertas_trabajadores, public.ofertas, public.trabajadores, public.empresa, public.usuarios, public.modalidades, public.categorias  RESTART IDENTITY CASCADE;
 
--- ---------------------------------------------------------------------
---  Usuarios
---  - paco y marta tienen VARIAS identidades secretas (relación 1:N)
---  - pepe no tiene ningún héroe (útil para probar listas vacías)
--- ---------------------------------------------------------------------
-INSERT INTO users (username, email, password, role) VALUES
-  ('admin', 'admin@agencia.test', '$2b$10$Q0tpp8.5ahRcn9dT6JmEje7F85fk0AdkaRQRF2wj4KmMoeI5M73Za', 'admin'), -- id 1
-  ('paco',  'paco@agencia.test',  '$2b$10$AVSXrv7/YhFi8sVBuhUWOeB7Bl.ZxnX2/1UqWKnzwthzNmgZsqcNO', 'user'),  -- id 2
-  ('marta', 'marta@agencia.test', '$2b$10$AVSXrv7/YhFi8sVBuhUWOeB7Bl.ZxnX2/1UqWKnzwthzNmgZsqcNO', 'user'),  -- id 3
-  ('lucia', 'lucia@agencia.test', '$2b$10$AVSXrv7/YhFi8sVBuhUWOeB7Bl.ZxnX2/1UqWKnzwthzNmgZsqcNO', 'user'),  -- id 4
-  ('pepe',  'pepe@agencia.test',  '$2b$10$AVSXrv7/YhFi8sVBuhUWOeB7Bl.ZxnX2/1UqWKnzwthzNmgZsqcNO', 'user');  -- id 5
+-- Categorías (IDs 1 al 4)
+INSERT INTO public.categorias (nombre, descripcion) VALUES
+('Desarrollo de Software', 'Programación web, móvil, backend, frontend y arquitectura de sistemas.'),
+('Diseño UX/UI', 'Diseño de interfaces, experiencia de usuario, prototipado y sistemas de diseño.'),
+('Marketing Digital', 'Gestión de campañas SEM/SEO, redes sociales y analítica web.'),
+('Ciencia de Datos', 'Análisis de datos, machine learning, inteligencia artificial y BI.');
 
--- ---------------------------------------------------------------------
---  Poderes
---  - "Abrir botes imposibles" no lo tiene nadie (para probar LEFT JOIN)
--- ---------------------------------------------------------------------
-INSERT INTO powers (name, description) VALUES
-  ('Detección de wifi',          'Encuentra la red y la contraseña de cualquier bar en menos de un minuto.'),             -- 1
-  ('Visión de huecos libres',    'Ve una plaza de aparcamiento libre a tres manzanas de distancia.'),                     -- 2
-  ('Puntualidad sobrehumana',    'Llega exactamente a la hora acordada. Siempre. Incluso a las cenas de empresa.'),       -- 3
-  ('Memoria de tápers',          'Recuerda de quién es cada táper de la nevera de la oficina.'),                         -- 4
-  ('Invisibilidad en reuniones', 'Nadie le pregunta nada en una reunión aunque esté en primera fila.'),                  -- 5
-  ('Cargador infinito',          'Siempre lleva encima el cargador del modelo de móvil que necesitas.'),                  -- 6
-  ('Silencio absoluto',          'Silencia el grupo de WhatsApp de la familia sin que nadie lo note.'),                   -- 7
-  ('Teletransporte a la cola',   'Aparece siempre en la cola más corta del supermercado.'),                               -- 8
-  ('Explicar lo evidente',       'Describe con todo detalle lo que todo el mundo ya sabía.'),                             -- 9
-  ('Localizar objetos perdidos', 'Encuentra llaves, mandos a distancia y el otro calcetín de la lavadora.'),             -- 10
-  ('Radar vecinal',              'Sabe quién se muda, quién se separa y quién tiene obras antes que nadie en el bloque.'),-- 11
-  ('Abrir botes imposibles',     'Abre cualquier bote de conserva a la primera.');                                       -- 12
+-- Modalidades (IDs 1 al 3)
+INSERT INTO public.modalidades (nombre) VALUES
+('Remoto'),
+('Híbrido'),
+('Presencial');
 
--- ---------------------------------------------------------------------
---  Héroes
--- ---------------------------------------------------------------------
-INSERT INTO heroes (name, description, utility_level, user_id) VALUES
-  ('Capitán Wifi',                          'Patrulla las cafeterías del barrio para que nadie se quede sin conexión.',          9, 2), -- 1  paco
-  ('El Fantasma del Trastero',              'Recorre los trasteros los sábados y nadie sabe qué hace allí.',                     2, 2), -- 2  paco
-  ('El Hombre que Llega Puntual',           'Su mera presencia hace que las reuniones empiecen a su hora.',                      6, 2), -- 3  paco
-  ('La Mujer que Siempre Encuentra Aparcamiento', 'Temida por los conductores del centro un viernes por la tarde.',              10, 3), -- 4  marta
-  ('Doctor Cargador',                       'Salvó tres móviles al 1 % el mes pasado.',                                          8, 3), -- 5  marta
-  ('El Calcetín Desparejado',               'Devuelve cada calcetín a su pareja. Nadie conoce su método.',                       4, 3), -- 6  marta
-  ('Señora Táper',                          'Ningún táper vuelve a casa equivocada mientras ella esté de guardia.',              7, 4), -- 7  lucia
-  ('Mister Mute',                           'Protector de la salud mental en los grupos de mensajería.',                         5, 4), -- 8  lucia
-  ('Abuela Radar',                          'Fuente de información más fiable del barrio desde 1974.',                            8, 4), -- 9  lucia
-  ('Capitán Obvio',                         'Siempre dispuesto a recordar que el agua moja.',                                     1, 1); -- 10 admin
+-- Usuarios (ID 1: Admin | IDs 2-4: Empresas | IDs 5-8: Trabajadores)
+INSERT INTO public.usuarios (nombre, contrasenia, email, telefono, admin) VALUES
+('Admin Sistema', '$2b$12$eImiTXuWVxfM37uY4JANjQ==', 'admin@portalempleo.es', '+34 600 000 001', true),
+('Laura Gómez', '$2b$12$KIX9s8d7f6g5h4j3k2l1zO==', 'rrhh@techbilbao.es', '+34 944 111 222', false),
+('Carlos Ruiz', '$2b$12$MNB8v7c6x5z4a3s2d1f0gH==', 'talento@innovanorte.com', '+34 910 333 444', false),
+('Elena Martín', '$2b$12$QWE1r2t3y4u5i6o7p8a9sD==', 'empleo@datavision.es', '+34 932 555 666', false),
+('Javier Pérez', '$2b$12$ZXC9v8b7n6m5l4k3j2h1gF==', 'javier.perez@email.com', '+34 611 222 333', false),
+('Sofía Navarro', '$2b$12$ASD4f5g6h7j8k9l0z1x2cV==', 'sofia.navarro@email.com', '+34 622 333 444', false),
+('Miguel Torres', '$2b$12$RTY7u8i9o0p1a2s3d4f5gH==', 'miguel.torres@email.com', '+34 633 444 555', false),
+('Ana Belén Castro', '$2b$12$UIO3p4a5s6d7f8g9h0j1kL==', 'ana.castro@email.com', '+34 644 555 666', false);
 
--- ---------------------------------------------------------------------
---  Asignación de poderes (relación N:M)
---  - "Puntualidad sobrehumana" la comparten varios héroes
---  - Capitán Wifi tiene varios poderes
--- ---------------------------------------------------------------------
-INSERT INTO hero_powers (hero_id, power_id) VALUES
-  (1, 1),  (1, 6),            -- Capitán Wifi: wifi + cargador
-  (2, 5),                     -- Fantasma del Trastero: invisibilidad
-  (3, 3),  (3, 8),            -- Hombre Puntual: puntualidad + teletransporte
-  (4, 2),  (4, 3),            -- Mujer Aparcamiento: huecos libres + puntualidad
-  (5, 6),  (5, 1),            -- Doctor Cargador: cargador + wifi
-  (6, 10),                    -- Calcetín Desparejado: localizar objetos
-  (7, 4),  (7, 10),           -- Señora Táper: memoria de tápers + localizar objetos
-  (8, 7),  (8, 5),            -- Mister Mute: silencio + invisibilidad
-  (9, 11), (9, 3), (9, 8),    -- Abuela Radar: radar + puntualidad + cola
-  (10, 9);                    -- Capitán Obvio: explicar lo evidente
+-- Empresas (IDs 1 al 3, asociadas a usuarios 2, 3 y 4)
+INSERT INTO public.empresa (id_usuario, nombre) VALUES
+(2, 'TechBilbao Solutions S.L.'),
+(3, 'InnovaNorte Digital S.A.'),
+(4, 'DataVision Analytics');
+
+-- Trabajadores (IDs 1 al 4, asociados a usuarios 5, 6, 7 y 8)
+INSERT INTO public.trabajadores (id_usuario, "cv") VALUES
+(5, '/uploads/cv/cv_javier_perez_backend.pdf'),
+(6, '/uploads/cv/cv_sofia_navarro_uxui.pdf'),
+(7, '/uploads/cv/cv_miguel_torres_data.pdf'),
+(8, '/uploads/cv/cv_anabelen_castro_marketing.pdf');
+
+-- Ofertas de empleo (IDs 1 al 5)
+INSERT INTO public.ofertas (nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha) VALUES
+('Desarrollador Backend PostgreSQL / Python', 1, 1, 'Buscamos desarrollador con experiencia en APIs REST y optimización de consultas SQL.', 2, '38000.00', 'Bilbao, Vizcaya', '2026-10-15'),
+('Diseñador Product Designer UX/UI Senior', 2, 2, 'Liderar el diseño de productos digitales y mantener el Design System corporativo.', 1, '35000.00', 'Madrid (100% Teletrabajo)', '2026-10-20'),
+('Data Engineer & BI Analyst', 4, 3, 'Construcción de pipelines ETL y cuadros de mando en PowerBI y SQL.', 2, '42000.00', 'Barcelona', '2026-11-01'),
+('Especialista SEO y Growth Marketing', 3, 2, 'Estrategia de posicionamiento orgánico y adquisición de tráfico B2B.', 3, '29500.00', 'Madrid', '2026-11-05'),
+('Desarrollador Fullstack React + Node.js', 1, 1, 'Desarrollo de nuevas funcionalidades para plataforma SaaS en crecimiento.', 1, '36500.00', 'España (Remoto)', '2026-11-10');
+
+-- Postulaciones (ofertas_trabajadores)
+INSERT INTO public.ofertas_trabajadores (id_ofertas, id_trabajador) VALUES
+(1, 1), -- Javier (Backend) aplica a Desarrollador Backend
+(5, 1), -- Javier (Backend) aplica a Fullstack React + Node
+(2, 2), -- Sofía (UX/UI) aplica a Product Designer
+(3, 3), -- Miguel (Data) aplica a Data Engineer
+(1, 3), -- Miguel (Data) aplica a Desarrollador Backend
+(4, 4); -- Ana Belén (Marketing) aplica a Especialista SEO
 
 COMMIT;
-
--- ---------------------------------------------------------------------
---  Consultas de comprobación (opcionales)
--- ---------------------------------------------------------------------
--- Héroes con su creador y sus poderes:
---   SELECT h.name AS heroe, u.username AS creador,
---          STRING_AGG(p.name, ', ' ORDER BY p.name) AS poderes
---   FROM heroes h
---   JOIN users u            ON u.id = h.user_id
---   LEFT JOIN hero_powers hp ON hp.hero_id = h.id
---   LEFT JOIN powers p       ON p.id = hp.power_id
---   GROUP BY h.id, u.username
---   ORDER BY h.id;
---
--- Poderes y cuántos héroes los tienen (incluye los que no tiene nadie):
---   SELECT p.name, COUNT(hp.hero_id) AS num_heroes
---   FROM powers p
---   LEFT JOIN hero_powers hp ON hp.power_id = p.id
---   GROUP BY p.id
---   ORDER BY num_heroes DESC;
