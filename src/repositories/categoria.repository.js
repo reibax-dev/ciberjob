@@ -1,5 +1,5 @@
 
-import { Categoria } from "../models/index.js";
+import { Categoria, Usuario } from "../models/index.js";
 
 
 // ------------------ CRUD de categoria ----------------------------
