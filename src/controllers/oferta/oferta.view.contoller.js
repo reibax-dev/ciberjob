@@ -1,27 +1,27 @@
 
-import { ofertas } from "../../models/index.js";
+
+
+import ofertaRepository from "../../repositories/oferta.repository.js";
 
 
 //? ++++ C ++++
 
 //! ENDPOINT crear dato
-const create = (req, res) => {
-    const id = ofertas(ofertas.length - 1).id + 1; 
-    const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = req.body;
-    // const id = ofertas.length ? ofertas[ofertas.length - 1].id + 1 : 1;
-    const oferta = {
-        id,
+const create = async (req, res) => {
+    // const id = ofertas(ofertas.length - 1).id + 1;  // const id = ofertas.length ? ofertas[ofertas.length - 1].id + 1 : 1;
+    const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = req.body;   
+    const oferta = await ofertaRepository.create ({
         nombre,
-        id_categoria,
-        id_empresa,
+        idCategoria: id_categoria,
+        idEmpresa: id_empresa,
         descripcion,
-        id_modalidad,
+        idModalidad: id_modalidad,
         salario,
         ubicacion,
         fecha
-    }
-    ofertas.push(oferta);
-    res.redirect("./");
+    })
+    // ofertas.push(oferta);
+    res.redirect("/oferta/"+ oferta.idOfertas);
 }
 
 const createForm = (req, res) => {
@@ -31,50 +31,68 @@ const createForm = (req, res) => {
 //!? ++++ R +++++
 
 //! ENDPOINT lista de datos
-const getAll = (req,res) => {
+const getAll = async (req,res) => {
+    const ofertas = await ofertaRepository.getAll();
     res.render("oferta/list", {ofertas})
 }
 
 //! ENDPOINT dato individual
-const getById = (req, res) => {
+const getById = async (req, res) => {
     const id = parseInt(req.params.id);
-    const oferta = ofertas.find ( o => o.id === id)
+    // const oferta = ofertas.find ( o => o.id === id)
+    const oferta = await ofertaRepository.getById(id);
     res.render("oferta/show", {oferta});
 }
 
 //? ++++ U ++++
 
 //! ENDPOINT para cambiar dato por completo
-const update = (req,res) => {
+const update = async (req,res) => {
     const id = parseInt(req.params.id);
-    const oferta = ofertas.find ( u => u.id === id)
-    const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = req.body;
+    // const oferta = ofertas.find ( u => u.id === id)
+    const oferta = await ofertaRepository.update(id, req.body);
+    // const {nombre, id_categoria, id_empresa, descripcion, id_modalidad, salario, ubicacion, fecha} = req.body;
+    if (oferta) {
+        // oferta.nombre = nombre;
+        // oferta.idCategoria = id_categoria;
+        // oferta.idEmpresa = id_empresa;
+        // oferta.descripcion = descripcion;
+        // oferta.idModalidad = id_modalidad;
+        // oferta.salario = salario;
+        // oferta.ubicacion = ubicacion;
+        // oferta.fecha = fecha;
+        // await oferta.save();
+        res.redirect("/oferta/" + oferta.idOfertas);   
+    } else {
+        res.redirect("/oferta");
+    }    
+};
 
-    oferta.nombre = nombre;
-    oferta.id_categoria = id_categoria;
-    oferta.id_empresa = id_empresa;
-    oferta.descripcion = descripcion;
-    oferta.id_modalidad = id_modalidad;
-    oferta.salario = salario;
-    oferta.ubicacion = ubicacion;
-    oferta.fecha = fecha;
-    res.redirect("./");
-}
-
-const updateForm = (req, rest) => {
+const updateForm = async (req, res) => {
     const id = parseInt(req.params.id);
-    const oferta = ofertas.find ( u => u.id === id);
+    // const oferta = ofertas.find ( u => u.id === id);
+    const oferta = await ofertaRepository.getById(id); 
     res.render("oferta/update", {oferta});
 }
 
 //? ++++ D ++++
 
-const remove = (req,res) => {
+const remove = async (req,res) => {
     const id = parseInt(req.params.id);
-    const index = ofertas.findIndex(o => o.id === id);
-    const [oferta] = ofertas.splice(index, 1);
-    res.redirect("./");
-}
+    // const index = ofertas.findIndex(o => o.id === id);
+    const oferta = await ofertaRepository.remove(id);
+    // if (oferta) {
+    //     await oferta.destroy()
+    // }
+    res.redirect("/oferta");
+}    
+    // let oferta;
+    // if (index > -1 ) {
+    //     oferta = ofertas.splice(index, 1);
+    // }
+    
+    
+
 
 
 export default {

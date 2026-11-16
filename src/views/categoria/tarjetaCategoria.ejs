@@ -1,0 +1,9 @@
+<article class="tarjeta-categoria">
+    <h3><%= categoria.nombre %></h3>
+    <p>Descripción: <%= categoria.descripcion %></p>
+    <a href="/categoria/<%=categoria.id%>">Visitar</a>
+    <form method="post" action="/categoria/<%=categoria.id%>/delete">
+        <button>Eliminar</button>
+    </form>
+
+</article>

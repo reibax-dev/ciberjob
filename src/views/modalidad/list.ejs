@@ -1,0 +1,7 @@
+<%- include('../layout/header'); -%>
+
+<h2> Modalidades:</h2>
+<% for (modalidad of modalidades) {%>
+    <%- include('tarjetaModalidad',{modalidad}) -%>
+<% } %>
+<%- include('../layout/footer'); -%>
