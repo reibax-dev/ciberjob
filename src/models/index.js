@@ -1,4 +1,7 @@
 import Oferta from "./oferta.model.js";
+import Usuario from "./usuario.js";
+import Categoria from "./categoria.model.js";
+import Modalidad from "./modalidad.model.js";
 
 
 
@@ -119,6 +122,9 @@ const trabajadores = [
 
 export {
   Oferta,
+  Usuario,
+  Categoria,
+  Modalidad,
   categorias,
   modalidades,
   usuarios,

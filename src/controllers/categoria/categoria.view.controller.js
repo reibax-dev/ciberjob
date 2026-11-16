@@ -19,13 +19,13 @@ const createForm = (req,res)=>{
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
 const getAll = async(req, res) => {
-    const categoria = await categoriaRepository.getAll();
-    res.render("categoria/list",{categoriaes})
+    const categorias = await categoriaRepository.getAll();
+    res.render("categoria/list",{categorias})
 };
 
 // endpoint dato individual
 const getById =async (req, res) => {
-    const idCategoria = parseInt(req.params.idCategoria);
+    const idCategoria = parseInt(req.params.id);
     const categoria = await categoriaRepository.getById(idCategoria);
     res.render("categoria/show",{categoria})
 };
@@ -34,7 +34,7 @@ const getById =async (req, res) => {
 // ---------------- U (Update) -----------------------------------
 // endpoint para cambiar dato por completo
 const update =async (req,res)=>{
-    const idCategoria = req.params.idCategoria;
+    const idCategoria = req.params.id;
     const categoria  = await categoriaRepository.update(idCategoria,req.body);
     if(categoria){
         res.redirect("/categoria/"+categoria.idCategoria);
@@ -45,7 +45,7 @@ const update =async (req,res)=>{
 }
 
 const updateForm = async (req,res)=>{
-    const idCategoria = parseInt(req.params.idCategoria);
+    const idCategoria = parseInt(req.params.id);
     const categoria  = await categoriaRepository.getById(idCategoria);
     res.render("categoria/update", {categoria})
 }
@@ -54,7 +54,7 @@ const updateForm = async (req,res)=>{
 // ------------------------ D (Delete)------------
 
 const remove =async (req,res)=>{
-    const idCategoria  = parseInt(req.params.idCategoria);
+    const idCategoria  = parseInt(req.params.id);
     const categoria = await categoriaRepository.remove(idCategoria);
     res.redirect("/categoria");
 }

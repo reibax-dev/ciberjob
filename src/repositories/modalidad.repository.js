@@ -1,5 +1,5 @@
 
-import { Modalidad,User } from "../models/index.js";
+import { Modalidad } from "../models/index.js";
 
 
 // ------------------ CRUD de modalidad ----------------------------
