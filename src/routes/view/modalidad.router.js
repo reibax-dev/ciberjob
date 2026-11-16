@@ -1,5 +1,5 @@
 import { Router} from "express";
-import modalidadViewControler from "../../controllers/modalidad/modalidad.view.contoller.js";
+import modalidadViewControler from "../../controllers/modalidad/modalidad.view.controller.js";
 
 const router = Router();
 

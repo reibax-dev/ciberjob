@@ -1,6 +1,6 @@
 import { Router } from "express";
 import usuarioRouter from "./usuario.router.js";
-import ofertaRouter from "./ofertas.router.js";
+import ofertaRouter from "./oferta.router.js";
 import categoriaRouter from "./categoria.router.js";
 import modalidadRouter from "./modalidad.router.js";
 
