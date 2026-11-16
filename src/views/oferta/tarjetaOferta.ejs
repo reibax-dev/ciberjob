@@ -1,0 +1,12 @@
+<article class="tarjeta-oferta">
+    <h3><%= oferta.nombre %></h3>
+    <p>Descripción: <%= oferta.descripcion %></p>
+    <p>Salario: <%= oferta.salario %> €</p>
+    <p>Ubicación: <%= oferta.ubicacion %></p>
+    <p>Fecha: <%= oferta.fecha %></p>
+    <a href="/oferta/<%=oferta.idOfertas%>">Visitar</a>
+    <form method="post" action="/oferta/<%=oferta.idOfertas%>/delete">
+        <button>Eliminar</button>
+    </form>
+
+</article>
