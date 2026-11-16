@@ -1,12 +1,12 @@
 <%- include('../layout/header'); -%>
 
-<h2> Nuevo usuario:</h2>
+<h2> Nuevo trabajador:</h2>
 <form action="/trabajador" method="post">
-    <label for="nom_usuario">Nombre de usuario</label>
-    <!-- <input type="text" name="nombre" id="nom_usuario"> -->
+    <label for="id_usuario">Id de usuario:</label>
+    <input type="number" name="idUsuario" id="id_usuario">
     <label for="cv">Curriculum Vitae:</label>
     <textarea name="cv" id="cv"></textarea>
 
     <button>Crear</button>
 </form>
-<%- include('../layout/footer'); -%></input>
+<%- include('../layout/footer'); -%>

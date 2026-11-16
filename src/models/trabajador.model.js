@@ -13,9 +13,12 @@ const Trabajador = connection.define("Trabajador", {
         unique: true
     },
     cv: {
-        type: DataTypes.TEXT,
-        allowNull: false
+        type: DataTypes.TEXT
     }
+}, {
+    tableName: "trabajadores",
+    timestamps: false,
+    underscored: true
 });
 
 export default Trabajador;

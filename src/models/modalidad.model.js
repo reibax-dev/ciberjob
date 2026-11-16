@@ -13,7 +13,7 @@ const Modalidad = connection.define("Modalidad",{
         unique: true
     },
 },{
-    tableName: "modalidad",
+    tableName: "modalidades",
     timestamps:false,
     underscored: true,
 });

@@ -16,7 +16,7 @@ const Categoria = connection.define("Categoria",{
         type:DataTypes.TEXT
     },
 },{
-    tableName: "categoria",
+    tableName: "categorias",
     timestamps:false,
     underscored: true,
 });

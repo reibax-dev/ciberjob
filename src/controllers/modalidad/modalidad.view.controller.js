@@ -7,8 +7,7 @@ import modalidadRepository from "../../repositories/modalidad.repository.js";
 // ------------------ C (Create)
 // endpoint para crear dato
 const create = async (req,res)=>{
-
-    const modalidad = await modalidadRepository.create({...req.body,userId:1})
+    const modalidad = await modalidadRepository.create(req.body)
     res.redirect("/modalidad/"+modalidad.idModalidad);
 }
 
@@ -18,14 +17,14 @@ const createForm = (req,res)=>{
 
 // ------------------ R (Read)---------------------------------------------
 // endpoint lista de datos
-const getAll = async(req, res) => {
-    const modalidad = await modalidadRepository.getAll();
-    res.render("modalidad/list",{modalidad})
+const getAll = async (req, res) => {
+    const modalidades = await modalidadRepository.getAll();
+    res.render("modalidad/list",{modalidades})
 };
 
 // endpoint dato individual
-const getById =async (req, res) => {
-    const idModalidad = parseInt(req.params.idModalidad);
+const getById = async (req, res) => {
+    const idModalidad = parseInt(req.params.id);
     const modalidad = await modalidadRepository.getById(idModalidad);
     res.render("modalidad/show",{modalidad})
 };
@@ -33,19 +32,18 @@ const getById =async (req, res) => {
 
 // ---------------- U (Update) -----------------------------------
 // endpoint para cambiar dato por completo
-const update =async (req,res)=>{
-    const idModalidad = req.params.idModalidad;
+const update = async (req,res)=>{
+    const idModalidad = req.params.id;
     const modalidad  = await modalidadRepository.update(idModalidad,req.body);
     if(modalidad){
         res.redirect("/modalidad/"+modalidad.idModalidad);
     }else{
         res.redirect("/modalidad");
     }
-
 }
 
 const updateForm = async (req,res)=>{
-    const idModalidad = parseInt(req.params.idModalidad);
+    const idModalidad = parseInt(req.params.id);
     const modalidad  = await modalidadRepository.getById(idModalidad);
     res.render("modalidad/update", {modalidad})
 }
@@ -53,9 +51,9 @@ const updateForm = async (req,res)=>{
 
 // ------------------------ D (Delete)------------
 
-const remove =async (req,res)=>{
-    const idModalidad  = parseInt(req.params.idModalidad);
-    const modalidad = await modalidadRepository.remove(idModalidad);
+const remove = async (req,res)=>{
+    const idModalidad  = parseInt(req.params.id);
+    await modalidadRepository.remove(idModalidad);
     res.redirect("/modalidad");
 }
 

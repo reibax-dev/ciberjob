@@ -7,15 +7,15 @@ import usuarioRepository from "../../repositories/usuario.repository.js";
 // ------------------ C (Create)
 // endpoint para crear dato
 const create = async (req,res)=>{
-    const {username,email,password,telefono,admin} = req.body;
+    const {nombre,email,contrasenia,telefono,admin} = req.body;
     const user = await usuarioRepository.create({
-        username,
+        nombre,
         email,
-        password,
+        contrasenia,
         telefono,
         admin
     })
-    res.redirect("/usuario/"+user.userId);
+    res.redirect("/usuario/"+user.idUsuario);
 }
 
 const createForm = (req,res)=>{
@@ -27,14 +27,14 @@ const createForm = (req,res)=>{
 // endpoint lista de datos
 const getAll = async(req, res) => {
     const users = await usuarioRepository.getAll();
-    res.render("usuario/list",{users})
+    res.render("usuario/list",{usuarios: users})
 };
 
 // endpoint dato individual
 const getById =async (req, res) => {
     const id = parseInt(req.params.id);
     const user = await usuarioRepository.getById(id);
-    res.render("usuario/show",{user})
+    res.render("usuario/show",{usuario: user})
 };
 
 
@@ -44,7 +44,7 @@ const update =async (req,res)=>{
     const id = req.params.id;
     const user  = await usuarioRepository.update(id,req.body);
     if(user){
-        res.redirect("/usuario/"+user.id);
+        res.redirect("/usuario/"+user.idUsuario);
     }else{
         res.redirect("/usuario");
     }
