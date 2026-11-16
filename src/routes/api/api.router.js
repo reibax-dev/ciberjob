@@ -17,7 +17,7 @@ router.get("/", (req,res) => {
 
 router.use("/usuario", usuarioRouter);
 router.use("/trabajador", trabajadorRouter);
-router.use("/ofertas", ofertasRouter);
+router.use("/oferta", ofertasRouter);
 router.use("/empresa", empresaRouter);
 router.use("/categoria", categoriaRouter);
 router.use("/modalidad", modalidadRouter);
