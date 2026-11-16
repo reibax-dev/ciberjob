@@ -1,7 +1,7 @@
 
 
 
-import { Oferta } from "../../models/index.js";
+import { Oferta } from "../models/index.js";
 
 
 //? ++++ C ++++
