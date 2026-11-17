@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import connection from "../config/db.js";
+import sequelize from "../config/db.js";
 
-const Trabajador = connection.define("Trabajador", {
+const Trabajador = sequelize.define("Trabajador", {
     idTrabajador: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -13,9 +13,12 @@ const Trabajador = connection.define("Trabajador", {
         unique: true
     },
     cv: {
-        type: DataTypes.TEXT,
-        allowNull: false
+        type: DataTypes.TEXT
     }
+}, {
+    tableName: "trabajadores",
+    timestamps: false,
+    underscored: true
 });
 
 export default Trabajador;

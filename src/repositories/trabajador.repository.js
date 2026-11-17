@@ -1,7 +1,7 @@
 import { Trabajador } from "../models/index.js";
 
 
-// ------------------ CRUD de user ----------------------------
+// ------------------ CRUD de trabajador ----------------------------
 
 // ------------------ C (Create)
 // endpoint para crear dato
@@ -20,12 +20,7 @@ const getAll = async() => {
 
 // endpoint dato individual
 const getById = async (id) => {
-    const trabajador = await Trabajador.findByPk(id/* ,{
-        include:{
-            model: Hero,
-            as: "heroes",
-        } 
-    }*/);
+    const trabajador = await Trabajador.findByPk(id);
     return trabajador;
 };
 
@@ -33,10 +28,10 @@ const getById = async (id) => {
 // ---------------- U (Update) -----------------------------------
 // endpoint para cambiar dato por completo
 const update =async (id, data)=>{
-    const {id_usuario,cv} = data;
-    const trabajador  = await Usuario.findByPk(id);
+    const {idUsuario,cv} = data;
+    const trabajador  = await Trabajador.findByPk(id);
     if(trabajador){
-        trabajador.id_usuario = id_usuario;
+        trabajador.idUsuario = idUsuario;
         trabajador.cv = cv;
         await trabajador.save();
         return trabajador;
@@ -47,12 +42,12 @@ const update =async (id, data)=>{
 }
 
 const modify = async (id,data)=>{
-    const {id_usuario,cv} = data;
-    const trabajador  = await Usuario.findByPk(id);
+    const {idUsuario,cv} = data;
+    const trabajador  = await Trabajador.findByPk(id);
     if(!trabajador){
         return null;
     }
-    trabajador.id_usuario = id_usuario || trabajador.id_usuario;
+    trabajador.idUsuario = idUsuario || trabajador.idUsuario;
     trabajador.cv = cv || trabajador.cv;
     await trabajador.save();
     return trabajador;
@@ -64,8 +59,8 @@ const modify = async (id,data)=>{
 // ------------------------ D (Delete)------------
 
 const remove =async (id)=>{
-    const trabajador = await User.findByPk(id);
-    if(user){
+    const trabajador = await Trabajador.findByPk(id);
+    if(trabajador){
         await trabajador.destroy();
         return trabajador;
     }

@@ -1,7 +1,7 @@
 import { DataTypes, Utils } from "sequelize";
-import connection from "../config/db.js";
+import sequelize from "../config/db.js";
 
-const Categoria = connection.define("Categoria",{
+const Categoria = sequelize.define("Categoria",{
     idCategoria: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -16,7 +16,7 @@ const Categoria = connection.define("Categoria",{
         type:DataTypes.TEXT
     },
 },{
-    tableName: "categoria",
+    tableName: "categorias",
     timestamps:false,
     underscored: true,
 });
