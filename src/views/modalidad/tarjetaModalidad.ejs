@@ -1,8 +1,10 @@
-<article class="tarjeta-modalidad">
-    <h3><%= modalidad.nombre %></h3>
-    <a href="/modalidad/<%=modalidad.id%>">Visitar</a>
-    <form method="post" action="/modalidad/<%=modalidad.id%>/delete">
-        <button>Eliminar</button>
+<article class="tarjeta-modalidad tarjeta tarjeta--amarillo">
+    <h3 class="tarjeta-titulo"><%= modalidad.nombre %></h3>
+    <div class="tarjeta-acciones">
+    <a href="/modalidad/<%=modalidad.id%>" class="btn btn-enlace">Visitar</a>
+    <form method="post" action="/modalidad/<%=modalidad.id%>/delete" class="form-inline">
+        <button class="btn btn-peligro">Eliminar</button>
     </form>
+    </div>
 
 </article>

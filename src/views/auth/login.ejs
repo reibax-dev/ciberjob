@@ -1,22 +1,22 @@
 <%- include('../layout/header', { title: 'Nuevo usuario' }); -%>
 
-<h2>Iniciar sesión</h2>
+<h2 class="titulo-seccion">Iniciar sesión</h2>
 <%- include('../layout/error') -%>
 
 <% if(query ){
     if(query.error){
         %>
-        <p class="error"><%= query.error %></p>
+        <p class="error alerta alerta-error"><%= query.error %></p>
         <%
     }
     if(query.message){
         %>
-        <p class="message"><%= query.message %></p>
+        <p class="message alerta alerta-ok"><%= query.message %></p>
         <%
     }
 }
 %>
-<form action="/auth/login" method="post">
+<form action="/auth/login" method="post" class="form-cyber form-auth" id="form-login">
     <label for="email">Email</label>
     <input type="email" id="email" name="email"  required>
 
@@ -24,10 +24,12 @@
     <label for="password">Contraseña</label>
     <input type="password" name="password" id="password" required>
 
-    <button>Iniciar sesión</button>
+    <button class="btn btn-primario">Iniciar sesión</button>
 </form>
 
-<a href="/auth/register">Registro</a>
-<a href="/user">Volver</a>
+<div class="enlaces-pie">
+<a href="/auth/register" class="enlace-secundario">Registro</a>
+<a href="/user" class="enlace-volver">Volver</a>
+</div>
 
 <%- include('../layout/footer'); -%>

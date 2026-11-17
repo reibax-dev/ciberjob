@@ -1,7 +1,7 @@
 <%- include('../layout/header'); -%>
 
-<h2> Nuevo usuario:</h2>
-<form action="/usuario" method="post">
+<h2 class="titulo-seccion"> Nuevo usuario:</h2>
+<form action="/usuario" method="post" class="form-cyber" id="form-usuario">
     <label for="nom_usuario">Nombre de usuario</label>
     <input type="text" name="nombre" id="nom_usuario">
     <label for="email">Email</label>
@@ -19,6 +19,6 @@
     <label for="passwordRepeat">Repetir Contraseña</label>
     <input type="password" name="contraseniaRepeat" id="passwordRepeat">
 
-    <button>Crear</button>
+    <button class="btn btn-primario">Crear</button>
 </form>
 <%- include('../layout/footer'); -%></input>
