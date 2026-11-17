@@ -11,7 +11,7 @@
 
 BEGIN;
 
-TRUNCATE public.ofertas_trabajadores, public.ofertas, public.trabajadores, public.empresa, public.usuarios, public.modalidades, public.categorias  RESTART IDENTITY CASCADE;
+TRUNCATE public.ofertas_trabajadores, public.ofertas, public.trabajadores, public.empresas, public.usuarios, public.modalidades, public.categorias  RESTART IDENTITY CASCADE;
 
 -- Categorías (IDs 1 al 4)
 INSERT INTO public.categorias (nombre, descripcion) VALUES
@@ -38,7 +38,7 @@ INSERT INTO public.usuarios (nombre, contrasenia, email, telefono, admin) VALUES
 ('Ana Belén Castro', '$2b$12$UIO3p4a5s6d7f8g9h0j1kL==', 'ana.castro@email.com', '+34 644 555 666', false);
 
 -- Empresas (IDs 1 al 3, asociadas a usuarios 2, 3 y 4)
-INSERT INTO public.empresa (id_usuario, nombre) VALUES
+INSERT INTO  public.empresas(id_usuario, nombre) VALUES
 (2, 'TechBilbao Solutions S.L.'),
 (3, 'InnovaNorte Digital S.A.'),
 (4, 'DataVision Analytics');
