@@ -1,11 +1,13 @@
 <%- include('../layout/header'); -%>
 
+<section class="detalle">
 <% if(modalidad){%>
     <%- include('tarjetaModalidad',{modalidad}) -%>
 
 <%}else{ %>
-    <p>No existe la modalidad</p>
+    <p class="vacio">No existe la modalidad</p>
 <%}%>
+</section>
 
-    <a href="/modalidad">Volver</a>
+    <a href="/modalidad" class="enlace-volver">Volver</a>
 <%- include('../layout/footer'); -%>

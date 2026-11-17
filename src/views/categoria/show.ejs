@@ -1,11 +1,13 @@
 <%- include('../layout/header'); -%>
 
+<section class="detalle">
 <% if(categoria){%>
     <%- include('tarjetaCategoria',{categoria}) -%>
 
 <%}else{ %>
-    <p>No existe la categoria</p>
+    <p class="vacio">No existe la categoria</p>
 <%}%>
+</section>
 
-    <a href="/categoria">Volver</a>
+    <a href="/categoria" class="enlace-volver">Volver</a>
 <%- include('../layout/footer'); -%>

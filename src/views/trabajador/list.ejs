@@ -1,7 +1,9 @@
 <%- include('../layout/header'); -%>
 
-<h2> Trabajadores:</h2>
+<h2 class="titulo-seccion"> Trabajadores:</h2>
+<section class="grid-tarjetas" id="lista-trabajadores">
 <% for (trabajador of trabajadores) {%>
     <%- include('trabajadorCard',{trabajador}) -%>
 <% } %>
+</section>
 <%- include('../layout/footer'); -%>

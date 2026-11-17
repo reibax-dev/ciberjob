@@ -1,13 +1,13 @@
 <%- include('../layout/header'); -%>
 
-<h2> Nueva categoría:</h2>
-<form action="/categoria" method="post">
+<h2 class="titulo-seccion"> Nueva categoría:</h2>
+<form action="/categoria" method="post" class="form-cyber" id="form-categoria">
     <label for="nombre">Nombre de categoría</label>
     <input type="text" name="nombre" id="nombre">
     <label for="descripcion">Descripción</label>
     <textarea  id="descripcion" name="descripcion"></textarea>  
     
 
-    <button>Crear</button>
+    <button class="btn btn-primario">Crear</button>
 </form>
 <%- include('../layout/footer'); -%>

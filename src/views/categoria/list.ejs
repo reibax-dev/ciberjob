@@ -1,7 +1,9 @@
 <%- include('../layout/header'); -%>
 
-<h2> Categorias:</h2>
+<h2 class="titulo-seccion"> Categorias:</h2>
+<section class="grid-tarjetas" id="lista-categorias">
 <% for (categoria of categorias) {%>
     <%- include('tarjetaCategoria',{categoria}) -%>
 <% } %>
+</section>
 <%- include('../layout/footer'); -%>
