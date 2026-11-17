@@ -1,9 +1,8 @@
-<%- //include('../layout/header'); -%>
+<%- include('../layout/header'); -%>
 
 <h2 class="titulo-seccion"> Usuarios:</h2>
 <section class="grid-tarjetas" id="lista-usuarios">
 <% for (usuario of usuarios) {%>
     <%- include('usuarioCard',{usuario}) -%>
 <% } %>
-</section>
-<%- //include('../layout/footer'); -%>
+<%- include('../layout/footer'); -%>

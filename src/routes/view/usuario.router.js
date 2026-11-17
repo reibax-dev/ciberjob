@@ -11,6 +11,8 @@ const router = Router();
 // vista de formulario
 router.get("/new",usuarioViewController.createForm);
 
+router.get("/new/err",usuarioViewController.createForm);
+
 // creación de dato
 router.post("/",usuarioViewController.create);
 

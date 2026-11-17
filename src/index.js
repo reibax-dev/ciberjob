@@ -19,10 +19,11 @@ app.use(express.static("public"));
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
-app.use("/", router);
-
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path;        // Current path
+  next();
+});
 const PORT = process.env.APP_PORT || 3000;      //* Pone al servidor a escuchar peticiones en el puerto definido y ejecuta una función cuando arranca con éxito
-
 app.use("/", router);
 
 async function startServer() {
