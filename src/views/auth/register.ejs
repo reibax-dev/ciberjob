@@ -1,22 +1,22 @@
 <%- include('../layout/header', { title: 'Nuevo usuario' }); -%>
 
-<h2>Registro</h2>
+<h2 class="titulo-seccion">Registro</h2>
 <%- include('../layout/error') -%>
 
 <% if(query ){
     if(query.error){
         %>
-        <p class="error"><%= query.error %></p>
+        <p class="error alerta alerta-error"><%= query.error %></p>
         <%
     }
     if(query.message){
         %>
-        <p class="message"><%= query.message %></p>
+        <p class="message alerta alerta-ok"><%= query.message %></p>
         <%
     }
 }
 %>
-<form action="/auth/register" method="post">
+<form action="/auth/register" method="post" class="form-cyber form-auth" id="form-registro">
     <label for="username">Nombre de usuario</label>
     <input type="text" name="username" id="username"  required>
 
@@ -30,10 +30,12 @@
     <label for="passwordRepeat">Repetir contraseña</label>
     <input type="password" name="passwordRepeat" id="passwordRepeat" required>
 
-    <button>Crear</button>
+    <button class="btn btn-primario">Crear</button>
 </form>
 
-<a href="/auth/login">Iniciar sesión</a>
-<a href="/user">Volver</a>
+<div class="enlaces-pie">
+<a href="/auth/login" class="enlace-secundario">Iniciar sesión</a>
+<a href="/user" class="enlace-volver">Volver</a>
+</div>
 
 <%- include('../layout/footer'); -%>

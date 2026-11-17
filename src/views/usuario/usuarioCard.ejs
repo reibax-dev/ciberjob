@@ -1,12 +1,14 @@
-<article class="user-card">
-    <h3><%= usuario.nombre %></h3>
-    <p>Email: <%= usuario.email %></p>
-    <p>Admin: <%= usuario.admin %></p>
-    <p>Teléfono: <%= usuario.telefono %></p>
-    <p>Admin: <%= usuario.admin ? "Sí" : "No" %></p>
-    <a href="/usuario/<%=usuario.id_usuario%>">Visitar</a>
-    <form method="post" action="/usuario/<%=usuario.id_usuario%>/delete">
-        <button>Eliminar</button>
+<article class="user-card tarjeta tarjeta-usuario tarjeta--cian">
+    <h3 class="tarjeta-titulo"><%= usuario.nombre %></h3>
+    <p class="tarjeta-dato">Email: <%= usuario.email %></p>
+    <p class="tarjeta-dato">Admin: <%= usuario.admin %></p>
+    <p class="tarjeta-dato">Teléfono: <%= usuario.telefono %></p>
+    <p class="tarjeta-dato">Admin: <%= usuario.admin ? "Sí" : "No" %></p>
+    <div class="tarjeta-acciones">
+    <a href="/usuario/<%=usuario.id_usuario%>" class="btn btn-enlace">Visitar</a>
+    <form method="post" action="/usuario/<%=usuario.id_usuario%>/delete" class="form-inline">
+        <button class="btn btn-peligro">Eliminar</button>
     </form>
+    </div>
 
 </article>

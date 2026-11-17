@@ -1,7 +1,9 @@
 <%- include('../layout/header'); -%>
 
-<h2> Modalidades:</h2>
+<h2 class="titulo-seccion"> Modalidades:</h2>
+<section class="grid-tarjetas grid-tarjetas--compacta" id="lista-modalidades">
 <% for (modalidad of modalidades) {%>
     <%- include('tarjetaModalidad',{modalidad}) -%>
 <% } %>
+</section>
 <%- include('../layout/footer'); -%>
