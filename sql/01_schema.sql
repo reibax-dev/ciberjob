@@ -62,13 +62,13 @@ CREATE TABLE public.ofertas (
     id_empresa integer NOT NULL REFERENCES public.empresas (id_empresa),
     descripcion text NOT NULL,
     id_modalidad integer NOT NULL REFERENCES public.modalidades (id_modalidad),
-    salario money NOT NULL,         /* numeric(10, 2) */
+    salario numeric (10, 2) NOT NULL,         /* numeric(10, 2) */
     ubicacion text NOT NULL,
     fecha date NOT NULL
 );
 
 CREATE TABLE public.ofertas_trabajadores (
-    id_ofertas integer NOT NULL REFERENCES public.ofertas (id_ofertas),
-    id_trabajador integer NOT NULL REFERENCES public.trabajadores (id_trabajador),
+    id_ofertas integer NOT NULL REFERENCES public.ofertas (id_ofertas) ON DELETE CASCADE,
+    id_trabajador integer NOT NULL REFERENCES public.trabajadores (id_trabajador) ON DELETE CASCADE,
     PRIMARY KEY (id_ofertas, id_trabajador)
 );
