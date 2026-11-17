@@ -1,11 +1,13 @@
-<article class="user-card">
-    <h3>Trabajador #<%= trabajador.idTrabajador %></h3>
-    <p>Id de usuario: <%= trabajador.idUsuario %></p>
-    <p>Curriculum Vitae</p>
-    <p><%= trabajador.cv %></p>
-    <a href="/trabajador/<%=trabajador.idTrabajador%>">Visitar</a>
-    <form method="post" action="/trabajador/<%=trabajador.idTrabajador%>/delete">
-        <button>Eliminar</button>
+<article class="user-card tarjeta tarjeta-trabajador tarjeta--amarillo">
+    <h3 class="tarjeta-titulo">Trabajador #<%= trabajador.idTrabajador %></h3>
+    <p class="tarjeta-dato">Id de usuario: <%= trabajador.idUsuario %></p>
+    <p class="tarjeta-etiqueta">Curriculum Vitae</p>
+    <p class="tarjeta-cv"><%= trabajador.cv %></p>
+    <div class="tarjeta-acciones">
+    <a href="/trabajador/<%=trabajador.idTrabajador%>" class="btn btn-enlace">Visitar</a>
+    <form method="post" action="/trabajador/<%=trabajador.idTrabajador%>/delete" class="form-inline">
+        <button class="btn btn-peligro">Eliminar</button>
     </form>
+    </div>
 
 </article>
