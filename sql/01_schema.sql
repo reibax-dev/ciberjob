@@ -17,7 +17,7 @@
 DROP TABLE IF EXISTS public.ofertas_trabajadores CASCADE;
 DROP TABLE IF EXISTS public.ofertas CASCADE;
 DROP TABLE IF EXISTS public.trabajadores CASCADE;
-DROP TABLE IF EXISTS public.empresa CASCADE;
+DROP TABLE IF EXISTS s CASCADE;
 DROP TABLE IF EXISTS public.usuarios CASCADE;
 DROP TABLE IF EXISTS public.modalidades CASCADE;
 DROP TABLE IF EXISTS public.categorias CASCADE;
@@ -43,7 +43,7 @@ CREATE TABLE public.usuarios (
     admin boolean NOT NULL
 );
 
-CREATE TABLE public.empresa (
+CREATE TABLE public.empresas (
     id_empresa integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_usuario integer NOT NULL UNIQUE REFERENCES public.usuarios (id_usuario),
     nombre character varying(100) NOT NULL
@@ -59,7 +59,7 @@ CREATE TABLE public.ofertas (
     id_ofertas integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre character varying(100) NOT NULL,
     id_categoria integer NOT NULL REFERENCES public.categorias (id_categoria),
-    id_empresa integer NOT NULL REFERENCES public.empresa (id_empresa),
+    id_empresa integer NOT NULL REFERENCES public.empresas (id_empresa),
     descripcion text NOT NULL,
     id_modalidad integer NOT NULL REFERENCES public.modalidades (id_modalidad),
     salario money NOT NULL,         /* numeric(10, 2) */
