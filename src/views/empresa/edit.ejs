@@ -1,0 +1,16 @@
+<%- include('../layout/header'); %>
+
+    <main>
+        <h2>Editar empresa</h2>
+
+        <form action="/empresa/<%= empresa.id_empresa %>/edit" method="post">
+            <label for="nombre">Nombre de la empresa:</label>
+            <input type="text" id="nombre" name="nombre" value="<%= empresa.nombre %>" maxlength="100" required>
+
+            <button type="submit">Guardar cambios</button>
+        </form>
+
+        <a href="/empresa/<%= empresa.id_empresa %>">Cancelar</a>
+    </main>
+
+    <%- include('../layout/footer'); %>

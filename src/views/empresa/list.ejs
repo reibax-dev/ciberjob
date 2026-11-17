@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
+<%- include('../layout/header'); %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empresas | Ciberjob</title>
-</head>
+<main>
+    <h2>Empresas</h2>
 
-<body>
-    <h1>Empresas</h1>
+    <a href="/empresa/new">Registrar empresa</a>
 
-    <ul>
-        <li>Aquí va la lista de empresas. Si no hay lista. "No hay empresas registrasdas"</li>
-    </ul>
-</body>
+    <% if (empresas.length === 0) { %>
+        <p>No hay empresas registradas.</p>
+    <% } else { %>
+        <ul>
+            <% for (const empresa of empresas) { %>
+                <li>
+                    <a href="/empresa/<%= empresa.id_empresa %>">
+                        <%= empresa.nombre %>
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+    <% } %>
+</main>
 
-</html>
+<%- include('../layout/footer'); %>

@@ -1,0 +1,23 @@
+<%- include('../layout/header'); %>
+
+    <main>
+        <h2>Registrar empresa</h2>
+
+        <form action="/empresa" method="post">
+            <div>
+                <label for="nombre">Nombre de la empresa:</label>
+                <input type="text" id="nombre" name="nombre" maxlength="100" required>
+            </div>
+
+            <div>
+                <label for="id_usuario">ID del usuario asociado:</label>
+                <input type="number" id="id_usuario" name="id_usuario" min="1" step="1" required>
+            </div>
+
+            <button type="submit">Registrar empresa</button>
+        </form>
+
+        <a href="/empresa">Volver al listado</a>
+    </main>
+
+    <%- include('../layout/footer'); %>
