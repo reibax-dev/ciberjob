@@ -2,6 +2,9 @@
 
 
 import ofertaRepository from "../../repositories/oferta.repository.js";
+import categoriaRepository from "../../repositories/categoria.repository.js";
+import modalidadRepository from "../../repositories/modalidad.repository.js";
+import empresaRepository from "../../repositories/empresa.repository.js";
 
 
 //? ++++ C ++++
@@ -32,8 +35,13 @@ const createForm = (req, res) => {
 
 //! ENDPOINT lista de datos
 const getAll = async (req,res) => {
-    const ofertas = await ofertaRepository.getAll();
-    res.render("oferta/list", {ofertas})
+    const [ofertas, categorias, modalidades, empresas] = await Promise.all([
+        ofertaRepository.getAll(),
+        categoriaRepository.getAll(),
+        modalidadRepository.getAll(),
+        empresaRepository.getAll()
+    ]);
+    res.render("oferta/list", {ofertas, categorias, modalidades, empresas})
 }
 
 //! ENDPOINT dato individual

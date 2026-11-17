@@ -1,7 +1,7 @@
 import { DataTypes, Utils } from "sequelize";
-import connection from "../config/db.js";
+import sequelize from "../config/db.js";
 
-const Modalidad = connection.define("Modalidad",{
+const Modalidad = sequelize.define("Modalidad",{
     idModalidad: {
         type: DataTypes.INTEGER,
         primaryKey: true,
