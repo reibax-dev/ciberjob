@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 
 const Empresa = sequelize.define("Empresa", {
+
     idEmpresa: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -17,7 +18,7 @@ const Empresa = sequelize.define("Empresa", {
         allowNull: false
     }
 }, {
-    tableName: "empresa",
+    tableName: "empresas",
     timestamps: false,
     underscored: true
 });

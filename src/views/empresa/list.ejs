@@ -1,0 +1,23 @@
+<%- include('../layout/header'); %>
+
+    <main>
+        <h2>Empresas</h2>
+
+        <a href="/empresa/new">Registrar empresa</a>
+
+        <% if (empresas.length===0) { %>
+            <p>No hay empresas registradas.</p>
+            <% } else { %>
+                <ul>
+                    <% for (const empresa of empresas) { %>
+                        <li>
+                            <a href="/empresa/<%= empresa.idEmpresa %>">
+                                <%= empresa.nombre %>
+                            </a>
+                        </li>
+                        <% } %>
+                </ul>
+                <% } %>
+    </main>
+
+    <%- include('../layout/footer'); %>

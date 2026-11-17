@@ -1,0 +1,25 @@
+<%- include('../layout/header'); %>
+
+    <main>
+        <h2>
+            <%= empresa.nombre %>
+        </h2>
+
+        <p>ID de empresa: <%= empresa.idEmpresa %>
+        </p>
+        <p>ID de usuario asociado: <%= empresa.idUsuario %>
+        </p>
+
+        <a href="/empresa/<%= empresa.idEmpresa %>/edit">
+            Editar empresa
+        </a>
+
+        <form action="/empresa/<%= empresa.idEmpresa %>/delete" method="post"
+            onsubmit="return confirm('¿Seguro que quieres eliminar esta empresa?');">
+            <button type="submit">Eliminar empresa</button>
+        </form>
+
+        <a href="/empresa">Volver al listado</a>
+    </main>
+
+    <%- include('../layout/footer'); %>
