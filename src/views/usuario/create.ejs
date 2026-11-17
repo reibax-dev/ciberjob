@@ -2,21 +2,21 @@
 
 <h2> Nuevo usuario:</h2>
 <% if(currentPath === '/usuario/new/err'){ %>
-    <h3>Error: Debe haber contraseñas y ser iguales.</h3>
+    <h3>Error: Las contraseñas no coinciden.</h3>
 <% } %>
 <form action="/usuario" method="post">
     <label for="nom_usuario">Nombre de usuario</label>
-    <input type="text" name="nombre" id="nom_usuario">
+    <input type="text" name="nombre" id="nom_usuario" required>
     <label for="email">Email</label>
-    <input type="email" id="email" name="email">
+    <input type="email" id="email" name="email" required>
     <label for="telefono">Teléfono</label>
-    <input type="tel" id="telefono" name="telefono">
+    <input type="tel" id="telefono" name="telefono" required>
     <label for="admin">Admin</label>
     <input type="checkbox" id="admin" name="admin">
     <label for="password">Contraseña</label>
-    <input type="password" name="contrasenia" id="password">
+    <input type="password" name="contrasenia" id="password" required>
     <label for="passwordRepeat">Repetir Contraseña</label>
-    <input type="password" name="contraseniaRepeat" id="passwordRepeat">
+    <input type="password" name="contraseniaRepeat" id="passwordRepeat" required>
 
     <button>Crear</button>
 </form>

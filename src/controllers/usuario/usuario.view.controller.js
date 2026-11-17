@@ -8,7 +8,7 @@ import usuarioRepository from "../../repositories/usuario.repository.js";
 // endpoint para crear dato
 const create = async (req, res) => {
     const { nombre, email, contrasenia, contraseniaRepeat, telefono, admin } = req.body;
-    if (contrasenia !== contraseniaRepeat || contrasenia.length === 0) {
+    if (contrasenia !== contraseniaRepeat) {
         res.redirect("usuario/new/err");
     } else {
         const user = await usuarioRepository.create({
@@ -24,8 +24,8 @@ const create = async (req, res) => {
 }
 
 const createForm = (req, res) => {
-    const roles = ["user", "admin"]
-    res.render("usuario/create", { roles });
+    //const roles = ["user", "admin"]
+    res.render("usuario/create");
 }
 
 // ------------------ R (Read)---------------------------------------------
