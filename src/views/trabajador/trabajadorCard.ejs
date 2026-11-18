@@ -1,6 +1,12 @@
 <article class="user-card tarjeta tarjeta-trabajador tarjeta--amarillo">
-    <h3 class="tarjeta-titulo">Trabajador #<%= trabajador.idTrabajador %></h3>
+    <h3 class="tarjeta-titulo"><%= usuario.nombre %></h3>
+    <p class="tarjeta-dato">Id de trabajador: #<%= trabajador.idTrabajador %></p>
     <p class="tarjeta-dato">Id de usuario: <%= trabajador.idUsuario %></p>
+    <p class="tarjeta-dato">Email: <%= usuario.email %></p>
+    <p class="tarjeta-dato">Teléfono: <%= usuario.telefono %></p>
+    <!-- <p class="tarjeta-dato">Admin: <%= usuario.admin ? "Sí" : "No" %></p> -->
+    
+    
     <p class="tarjeta-etiqueta">Curriculum Vitae</p>
     <p class="tarjeta-cv"><%= trabajador.cv %></p>
     <div class="tarjeta-acciones">
