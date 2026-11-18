@@ -3,19 +3,6 @@
 <h2 class="titulo-seccion">Registro</h2>
 <%- include('../layout/error') -%>
 
-<% if(query ){
-    if(query.error){
-        %>
-        <p class="error alerta alerta-error"><%= query.error %></p>
-        <%
-    }
-    if(query.message){
-        %>
-        <p class="message alerta alerta-ok"><%= query.message %></p>
-        <%
-    }
-}
-%>
 <form action="/auth/register" method="post" class="form-cyber form-auth" id="form-registro">
     <label for="username">Nombre de usuario</label>
     <input type="text" name="username" id="username"  required>

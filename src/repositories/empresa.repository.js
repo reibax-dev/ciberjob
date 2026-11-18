@@ -10,6 +10,15 @@ async function getById(idEmpresa) {
     return empresaEncontrada;
 }
 
+const getByIdUsuario = async (idUsuario) => {
+    try{
+        const empresa = await Empresa.findOne({where: {idUsuario}});
+        return empresa;
+    }catch (error){
+        throwError(error);
+    }
+}
+
 async function create(datosEmpresa) {
     const nuevaEmpresa = await Empresa.create(datosEmpresa);
     return nuevaEmpresa;
@@ -44,6 +53,7 @@ async function remove(idEmpresa) {
 export default {
     getAll,
     getById,
+    getByIdUsuario,
     create,
     update,
     remove

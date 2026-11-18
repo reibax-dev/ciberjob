@@ -24,6 +24,18 @@ const getById = async (id) => {
     return trabajador;
 };
 
+// endpoint dato por relación
+const getByIdUsuario = async (idUsuario) => {
+    try{
+        const trabajador = await Trabajador.findOne({where: {idUsuario}});
+        return trabajador;
+    }catch (error){
+        throwError(error);
+    }
+}
+
+// endpoint 
+
 
 // ---------------- U (Update) -----------------------------------
 // endpoint para cambiar dato por completo
@@ -72,6 +84,7 @@ export default {
     create,
     getAll,
     getById,
+    getByIdUsuario,
     update,
     modify,
     remove
