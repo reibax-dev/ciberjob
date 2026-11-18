@@ -1,8 +1,13 @@
 import empresaRepository from "../../repositories/empresa.repository.js";
+import usuarioRepository from "../../repositories/usuario.repository.js"
 
 async function getAll(req, res) {
     const empresas = await empresaRepository.getAll();
-    return res.render("empresa/list", { empresas });
+    const usuarios = [];
+    for(let empresa of empresas){
+        usuarios.push(await usuarioRepository.getById(empresa.idUsuario));
+    }
+    return res.render("empresa/list", { empresas, usuarios });
 }
 
 async function getById(req, res) {
@@ -17,8 +22,9 @@ async function getById(req, res) {
     if (empresa === null) {
         return res.status(404).send("Empresa no encontrada.");
     }
+    const usuario = await usuarioRepository.getById(empresa.idUsuario);
 
-    return res.render("empresa/show", { empresa });
+    return res.render("empresa/show", { empresa,usuario });
 }
 
 function createForm(req, res) {
@@ -26,28 +32,45 @@ function createForm(req, res) {
 }
 
 async function create(req, res) {
-    const nombre = req.body.nombre;
-    const idUsuario = Number(req.body.idUsuario);
-
+    //const nombre = req.body.nombre;
+    //const idUsuario = Number(req.body.idUsuario);
+    const {nom_usuario, email, contrasenia, contraseniaRepeat, telefono, nom_empresa } = req.body;
+    let idUser;
     if (
-        typeof nombre !== "string" ||
-        nombre.trim().length === 0 ||
-        nombre.trim().length > 100
+        typeof nom_empresa !== "string" ||
+        nom_empresa.trim().length === 0 ||
+        nom_empresa.trim().length > 100
     ) {
         return res.status(400).send(
             "El nombre debe tener entre 1 y 100 caracteres."
         );
+    } else if (contrasenia !== contraseniaRepeat) {
+        res.redirect("empresa/new/");
     }
 
-    if (!Number.isInteger(idUsuario) || idUsuario <= 0) {
+    /* if (!Number.isInteger(idUsuario) || idUsuario <= 0) {
         return res.status(400).send(
             "El ID de usuario debe ser un número entero positivo."
         );
     }
-
+    if (contrasenia !== contraseniaRepeat) {
+        res.redirect("usuario/new/err");
+    } */ 
+   else {
+        const user = await usuarioRepository.create({
+            nombre: nom_usuario,
+            email,
+            contrasenia,
+            telefono,
+            admin:false
+        })
+        //res.redirect("/usuario/" + user.idUsuario);
+        idUser = user.idUsuario;
+    }
+    nom_empresa.trim()
     const empresaCreada = await empresaRepository.create({
-        nombre: nombre.trim(),
-        idUsuario: idUsuario
+        nombre: nom_empresa,
+        idUsuario: idUser
     });
 
     return res.redirect("/empresa/" + empresaCreada.idEmpresa);
