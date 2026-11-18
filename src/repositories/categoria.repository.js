@@ -32,8 +32,8 @@ const update =async (id, data)=>{
     const {nombre,descripcion} = data;
     const categoria  = await Categoria.findByPk(id);
     if(categoria){
-        categoria.nombre = name;
-        categoria.descripcion = description;
+        categoria.nombre = nombre;
+        categoria.descripcion = descripcion;
         await categoria.save();
         return categoria;
     }else{

@@ -12,7 +12,7 @@ import { isAuthenticated } from "../../middlewares/auth.middleware.js";
 const router = Router();
 
 router.get("/", (req, res) => {
-    res.render("index");
+    res.render("index", {message: req.query.message});
 })
 
 router.use("/usuario", usuarioRouter);

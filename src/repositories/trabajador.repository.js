@@ -30,7 +30,7 @@ const getByIdUsuario = async (idUsuario) => {
         const trabajador = await Trabajador.findOne({where: {idUsuario}});
         return trabajador;
     }catch (error){
-        throwError(error);
+        throw error;
     }
 }
 

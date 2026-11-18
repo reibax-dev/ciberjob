@@ -12,7 +12,7 @@ const router = Router();
 
 //! Prueba 
 router.get("/", (req,res) => {
-    res.json ({message:"Puta from API"})
+    res.json ({message:"Bienvenido a la API de CiberJob"})
 })
 
 router.use("/usuario", usuarioRouter);

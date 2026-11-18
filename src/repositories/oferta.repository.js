@@ -57,10 +57,10 @@ const modify = async (id, data) => {
         return null ;
     }
     oferta.nombre = nombre || oferta.nombre;
-    oferta.id_categoria = id_categoria || oferta.id_categoria;
-    oferta.id_empresa = id_empresa || oferta.id_empresa;
+    oferta.idCategoria = id_categoria || oferta.idCategoria;
+    oferta.idEmpresa = id_empresa || oferta.idEmpresa;
     oferta.descripcion = descripcion || oferta.descripcion;
-    oferta.id_modalidad = id_modalidad || oferta.id_modalidad;
+    oferta.idModalidad = id_modalidad || oferta.idModalidad;
     oferta.salario = salario || oferta.salario;
     oferta.ubicacion = ubicacion || oferta.ubicacion;
     oferta.fecha = fecha || oferta.fecha;

@@ -1,5 +1,8 @@
 
+import bcrypt from "bcrypt";
 import { Usuario } from "../models/index.js";
+
+const SALT_ROUNDS = 10;
 
 
 // ------------------ CRUD de user ----------------------------
@@ -7,7 +10,9 @@ import { Usuario } from "../models/index.js";
 // ------------------ C (Create)
 // endpoint para crear dato
 const create = async (data)=>{
-    const user = await Usuario.create(data)
+    // la contraseña se guarda cifrada con bcrypt, nunca en claro
+    const contrasenia = await bcrypt.hash(data.contrasenia, SALT_ROUNDS);
+    const user = await Usuario.create({...data, contrasenia})
     return user;
 }
 
@@ -30,6 +35,18 @@ const getById = async (id) => {
     return user;
 };
 
+// endpoint dato por email (login)
+const getByEmail = async (email) => {
+    const user = await Usuario.findOne({where: {email}});
+    return user;
+};
+
+// endpoint dato por nombre de usuario (login y registro)
+const getByUsername = async (nombre) => {
+    const user = await Usuario.findOne({where: {nombre}});
+    return user;
+};
+
 
 // ---------------- U (Update) -----------------------------------
 // endpoint para cambiar dato por completo
@@ -39,7 +56,9 @@ const update =async (id, data)=>{
     if(user){
         user.nombre = nombre;
         user.email = email;
-        user.contrasenia = contrasenia;
+        if(contrasenia){
+            user.contrasenia = await bcrypt.hash(contrasenia, SALT_ROUNDS);
+        }
         user.telefono = telefono
         user.admin = admin;
         await user.save();
@@ -58,7 +77,9 @@ const modify = async (id,data)=>{
     }
     user.nombre = nombre || user.nombre;
     user.email = email || user.email;
-    user.contrasenia = contrasenia || user.contrasenia;
+    if(contrasenia){
+        user.contrasenia = await bcrypt.hash(contrasenia, SALT_ROUNDS);
+    }
     user.telefono = telefono || user.telefono;
     user.admin = admin || user.admin;
     await user.save();
@@ -84,6 +105,8 @@ export default {
     create,
     getAll,
     getById,
+    getByEmail,
+    getByUsername,
     update,
     modify,
     remove

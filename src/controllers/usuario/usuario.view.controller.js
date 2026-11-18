@@ -9,7 +9,7 @@ import usuarioRepository from "../../repositories/usuario.repository.js";
 const create = async (req, res) => {
     const { nombre, email, contrasenia, contraseniaRepeat, telefono, admin } = req.body;
     if (contrasenia !== contraseniaRepeat) {
-        res.redirect("usuario/new/err");
+        return res.redirect("/usuario/new/err");
     } else {
         const user = await usuarioRepository.create({
             nombre,
@@ -39,6 +39,9 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
     const id = parseInt(req.params.id);
     const user = await usuarioRepository.getById(id);
+    if (!user) {
+        return res.status(404).render("layout/errorPagina", {status: 404, mensaje: "Usuario no encontrado."});
+    }
     res.render("usuario/show", { usuario: user })
 };
 
@@ -47,6 +50,7 @@ const getById = async (req, res) => {
 // endpoint para cambiar dato por completo
 const update = async (req, res) => {
     const id = req.params.id;
+    req.body.admin = req.body.admin === "true"; // el checkbox solo se envía si está marcado
     const user = await usuarioRepository.update(id, req.body);
     if (user) {
         res.redirect("/usuario/" + user.idUsuario);
@@ -59,7 +63,10 @@ const update = async (req, res) => {
 const updateForm = async (req, res) => {
     const id = parseInt(req.params.id);
     const user = await usuarioRepository.getById(id);
-    res.render("usuario/update", { user })
+    if (!user) {
+        return res.status(404).render("layout/errorPagina", {status: 404, mensaje: "Usuario no encontrado."});
+    }
+    res.render("usuario/update", { usuario: user })
 }
 
 

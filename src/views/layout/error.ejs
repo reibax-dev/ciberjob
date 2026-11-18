@@ -2,3 +2,6 @@
 <% if (locals.error) { %>
     <p class="error alerta alerta-error"><%= error %></p>
 <% } %>
+<% if (locals.message) { %>
+    <p class="message alerta alerta-ok"><%= message %></p>
+<% } %>
