@@ -1,5 +1,6 @@
 
 import trabajadorRepository from "../../repositories/trabajador.repository.js";
+import usuarioRepository from "../../repositories/usuario.repository.js";
 
 
 // ------------------ CRUD de trabajador ----------------------------
@@ -7,11 +8,28 @@ import trabajadorRepository from "../../repositories/trabajador.repository.js";
 // ------------------ C (Create)
 // endpoint para crear dato
 const create = async (req,res)=>{
-    const {idUsuario,cv} = req.body;
+    //Generación de Usuario
+    const { nombre, email, contrasenia, contraseniaRepeat, telefono } = req.body;
+    let idUser;
+    if (contrasenia !== contraseniaRepeat) {
+        res.redirect("trabajador/new/err");
+    } else {
+        const user = await usuarioRepository.create({
+            nombre,
+            email,
+            contrasenia,
+            telefono,
+            admin:false
+        })
+        idUser = user.idUsuario;
+        //res.redirect("/trabajador/" + user.idUsuario);
+    }
+    //Generación de trabajador (y asociación de usuario)
+    const {cv} = req.body;
     const trabajador = await trabajadorRepository.create({
-        idUsuario,
+        idUsuario: idUser,
         cv
-    })
+    });
     res.redirect("/trabajador/"+trabajador.idTrabajador);
 }
 
@@ -23,14 +41,20 @@ const createForm = (req,res)=>{
 // endpoint lista de datos
 const getAll = async(req, res) => {
     const trabajadores = await trabajadorRepository.getAll();
-    res.render("trabajador/list",{trabajadores})
+    const usuarios = [];
+    for(let trabajador of trabajadores){
+        const usuario = await usuarioRepository.getById(trabajador.idUsuario);
+        usuarios.push(usuario);
+    }
+    res.render("trabajador/list",{trabajadores,usuarios})
 };
 
 // endpoint dato individual
 const getById =async (req, res) => {
     const id = parseInt(req.params.id);
     const trabajador = await trabajadorRepository.getById(id);
-    res.render("trabajador/show",{trabajador})
+    const usuario = await usuarioRepository.getById(trabajador.idUsuario);
+    res.render("trabajador/show",{trabajador,usuario})
 };
 
 
