@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= locals.title ? title + ' | CiberJob' : 'CiberJob' %></title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body class="cyber">
 <header class="site-header" id="top">
@@ -12,22 +16,28 @@
         <h1 class="logo">CiberJob</h1>
         <ul class="nav-links">
             <li><a href="/" <% if (currentPath === '/') { %>aria-current="page"<% } %>>Inicio</a></li>
-            <li><a href="/oferta" <% if (currentPath.startsWith('/oferta')) { %>aria-current="page"<% } %>>Ofertas</a></li>
-            <li><a href="/empresa" <% if (currentPath.startsWith('/empresa')) { %>aria-current="page"<% } %>>Empresas</a></li>
-            <li><a href="/trabajador" <% if (currentPath.startsWith('/trabajador')) { %>aria-current="page"<% } %>>Trabajadores</a></li>
-            <li><a href="/categoria" <% if (currentPath.startsWith('/categoria')) { %>aria-current="page"<% } %>>Categorías</a></li>
-            <li><a href="/modalidad" <% if (currentPath.startsWith('/modalidad')) { %>aria-current="page"<% } %>>Modalidades</a></li>
             <% if (locals.usuarioSesion) { %>
-                <% if (usuarioSesion.admin) { %>
-                    <li><a href="/usuario" <% if (currentPath.startsWith('/usuario')) { %>aria-current="page"<% } %>>Usuarios</a></li>
+                <% if (usuarioSesion.rol === 'Trabajador') { %>
+                    <li><a href="/oferta" <% if (currentPath === '/oferta') { %>aria-current="page"<% } %>>Ofertas</a></li>
+                    <li><a href="/oferta/inscripciones" <% if (currentPath === '/oferta/inscripciones') { %>aria-current="page"<% } %>>Mis inscripciones</a></li>
+                    <li><a href="/trabajador/<%= usuarioSesion.idTipo %>" <% if (currentPath.startsWith('/trabajador')) { %>aria-current="page"<% } %>>Mi perfil</a></li>
+                <% } else if (usuarioSesion.rol === 'Empresa' && !usuarioSesion.admin) { %>
+                    <li><a href="/oferta" <% if (currentPath === '/oferta') { %>aria-current="page"<% } %>>Mis ofertas</a></li>
+                    <li><a href="/oferta/new" <% if (currentPath === '/oferta/new') { %>aria-current="page"<% } %>>Publicar oferta</a></li>
+                    <li><a href="/empresa/<%= usuarioSesion.idTipo %>" <% if (currentPath.startsWith('/empresa')) { %>aria-current="page"<% } %>>Mi empresa</a></li>
                 <% } %>
-                <% if (usuarioSesion.rol === 'Empresa') { %>
-                    <li><a href="/oferta/new">Publicar oferta</a></li>
+                <% if (usuarioSesion.admin) { %>
+                    <li><a href="/oferta" <% if (currentPath.startsWith('/oferta')) { %>aria-current="page"<% } %>>Ofertas</a></li>
+                    <li><a href="/empresa" <% if (currentPath.startsWith('/empresa')) { %>aria-current="page"<% } %>>Empresas</a></li>
+                    <li><a href="/trabajador" <% if (currentPath.startsWith('/trabajador')) { %>aria-current="page"<% } %>>Trabajadores</a></li>
+                    <li><a href="/usuario" <% if (currentPath.startsWith('/usuario')) { %>aria-current="page"<% } %>>Usuarios</a></li>
+                    <li><a href="/categoria" <% if (currentPath.startsWith('/categoria')) { %>aria-current="page"<% } %>>Categorías</a></li>
+                    <li><a href="/modalidad" <% if (currentPath.startsWith('/modalidad')) { %>aria-current="page"<% } %>>Modalidades</a></li>
                 <% } %>
                 <li><a href="/auth/logout">Cerrar sesión (<%= usuarioSesion.nombre %>)</a></li>
             <% } else { %>
                 <li><a href="/auth/login" <% if (currentPath === '/auth/login') { %>aria-current="page"<% } %>>Iniciar sesión</a></li>
-                <li><a href="/auth/register" <% if (currentPath === '/auth/register') { %>aria-current="page"<% } %>>Registro</a></li>
+                <li><a href="/auth/register" <% if (currentPath === '/auth/register' || currentPath.endsWith('/new')) { %>aria-current="page"<% } %>>Registro</a></li>
             <% } %>
         </ul>
     </nav>

@@ -18,16 +18,20 @@
                 <% if(currentPath==='/usuario' ){ %>
                     <a href="/usuario/<%=usuario.idUsuario%>" class="btn btn-enlace">Visitar</a>
                 <% } %>
+                <% if (usuarioSesion.admin || (usuarioSesion.rol === 'Empresa' && usuarioSesion.idTipo === empresa.idEmpresa)) { %>
                 <a href="/empresa/<%= empresa.idEmpresa %>/edit">
                     Editar empresa
                 </a>
+                <% } %>
 
+                <% if (usuarioSesion.admin) { %>
                 <form action="/empresa/<%= empresa.idEmpresa %>/delete" method="post"
-                    onsubmit="return confirm('¿Seguro que quieres eliminar esta empresa?');">
+                    onsubmit="return confirm('¿Seguro que quieres eliminar esta empresa? Se borrarán también su usuario y sus ofertas.');">
                     <button type="submit">Eliminar empresa</button>
                 </form>
 
                 <a href="/empresa">Volver al listado</a>
+                <% } %>
             </div>
 
     <%- include('../layout/footer'); %>

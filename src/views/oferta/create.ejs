@@ -13,6 +13,8 @@
         <% } %>
     </select>
 
+    <%# solo el admin elige empresa; la empresa publica a su nombre %>
+    <% if (locals.empresas) { %>
     <label for="id_empresa">Empresa:</label>
     <select name="id_empresa" id="id_empresa" required>
         <option value="" disabled selected>Selecciona una empresa</option>
@@ -20,6 +22,7 @@
             <option value="<%= empresa.idEmpresa %>"><%= empresa.nombre %></option>
         <% } %>
     </select>
+    <% } %>
 
     <label for="descripcion">Descripción:</label>
     <textarea name="descripcion" id="descripcion" required></textarea>

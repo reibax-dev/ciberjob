@@ -24,8 +24,8 @@ Empresa.hasMany(Oferta,{foreignKey:'idEmpresa', as: 'ofertas'});
 Oferta.belongsTo(Empresa,{foreignKey:'idEmpresa',as:'empresas'});
 
 //Relaciones M a N
-Trabajador.belongsToMany(Oferta, { through: OfertaTrabajador, foreignKey: 'idTrabajador' })
-Oferta.belongsToMany(Trabajador, { through: OfertaTrabajador, foreignKey: 'idOferta' })
+Trabajador.belongsToMany(Oferta, { through: OfertaTrabajador, foreignKey: 'idTrabajador', otherKey: 'idOfertas', as: 'ofertas' })
+Oferta.belongsToMany(Trabajador, { through: OfertaTrabajador, foreignKey: 'idOfertas', otherKey: 'idTrabajador', as: 'trabajadores' })
 
 export {
   Oferta,

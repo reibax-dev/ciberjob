@@ -12,7 +12,7 @@ const OfertaTrabajador = sequelize.define("OfertaTrabajador", {
             key: 'id_ofertas'
         }
     },
-    idTrabajadores: {
+    idTrabajador: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: false,

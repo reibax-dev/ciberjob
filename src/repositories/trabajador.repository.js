@@ -1,4 +1,6 @@
-import { Trabajador } from "../models/index.js";
+import { Trabajador, Usuario, OfertaTrabajador } from "../models/index.js";
+import sequelize from "../config/db.js";
+import usuarioRepository from "./usuario.repository.js";
 
 
 // ------------------ CRUD de trabajador ----------------------------
@@ -7,6 +9,15 @@ import { Trabajador } from "../models/index.js";
 // endpoint para crear dato
 const create = async (data)=>{
     const trabajador = await Trabajador.create(data)
+    return trabajador;
+}
+
+// crea el usuario y su trabajador a la vez (transacción): si falla uno no se guarda ninguno
+const createConUsuario = async (datosUsuario, datosTrabajador)=>{
+    const trabajador = await sequelize.transaction(async (t)=>{
+        const user = await usuarioRepository.create(datosUsuario, t);
+        return await Trabajador.create({...datosTrabajador, idUsuario: user.idUsuario}, {transaction: t});
+    });
     return trabajador;
 }
 
@@ -73,7 +84,12 @@ const modify = async (id,data)=>{
 const remove =async (id)=>{
     const trabajador = await Trabajador.findByPk(id);
     if(trabajador){
-        await trabajador.destroy();
+        // borra también sus inscripciones y su usuario: todo o nada
+        await sequelize.transaction(async (t)=>{
+            await OfertaTrabajador.destroy({where: {idTrabajador: trabajador.idTrabajador}, transaction: t});
+            await trabajador.destroy({transaction: t});
+            await Usuario.destroy({where: {idUsuario: trabajador.idUsuario}, transaction: t});
+        });
         return trabajador;
     }
     return null;
@@ -82,6 +98,7 @@ const remove =async (id)=>{
 
 export default {
     create,
+    createConUsuario,
     getAll,
     getById,
     getByIdUsuario,

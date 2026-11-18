@@ -28,14 +28,13 @@ async function getById(req, res) {
 }
 
 function createForm(req, res) {
-    return res.render("empresa/create");
+    return res.render("empresa/create", { error: req.query.error });
 }
 
 async function create(req, res) {
     //const nombre = req.body.nombre;
     //const idUsuario = Number(req.body.idUsuario);
     const {nom_usuario, email, contrasenia, contraseniaRepeat, telefono, nom_empresa } = req.body;
-    let idUser;
     if (
         typeof nom_empresa !== "string" ||
         nom_empresa.trim().length === 0 ||
@@ -56,23 +55,20 @@ async function create(req, res) {
     if (contrasenia !== contraseniaRepeat) {
         res.redirect("usuario/new/err");
     } */ 
-   else {
-        const user = await usuarioRepository.create({
-            nombre: nom_usuario,
-            email,
-            contrasenia,
-            telefono,
-            admin:false
-        })
-        //res.redirect("/usuario/" + user.idUsuario);
-        idUser = user.idUsuario;
+    if (await usuarioRepository.getByEmail(email) || await usuarioRepository.getByUsername(nom_usuario)) {
+        return res.redirect("/empresa/new?error=" + encodeURIComponent("Ya existe un usuario con ese email o nombre"));
     }
-    nom_empresa.trim()
-    const empresaCreada = await empresaRepository.create({
-        nombre: nom_empresa.trim(),
-        idUsuario: idUser
-    });
+    // usuario y empresa se crean juntos en una transacción
+    const empresaCreada = await empresaRepository.createConUsuario(
+        { nombre: nom_usuario, email, contrasenia, telefono, admin: false },
+        { nombre: nom_empresa.trim() }
+    );
 
+    // al registrarse se inicia la sesión como empresa
+    if (!req.session.usuario) {
+        req.session.usuario = { idUsuario: empresaCreada.idUsuario, nombre: nom_usuario, admin: false, rol: "Empresa", idTipo: empresaCreada.idEmpresa };
+        return res.redirect("/oferta");
+    }
     return res.redirect("/empresa/" + empresaCreada.idEmpresa);
 }
 

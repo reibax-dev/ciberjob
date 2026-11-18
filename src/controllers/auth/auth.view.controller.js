@@ -13,36 +13,9 @@ function redirect(res,url,data = {}){
 }
 const registerForm = async (req, res) => {
 
-    res.render("auth/register", {error: req.query.error})
+    // ya no hay registro genérico: se elige entre registro de trabajador o de empresa
+    res.render("auth/register")
 }
-const register = async (req, res) => {
-    const { nombre, email, contrasenia, contraseniaRepeat, telefono } = req.body;
-    const rol = "user";
-    if (contrasenia !== contraseniaRepeat) {
-        redirect(res,"/auth/register",{error:"Las contraseñas no coinciden"})
-        return;
-    }
-    try {
-        let oldUser = await usuarioRepository.getByEmail(email);
-        if (oldUser) {
-            redirect(res,"/auth/register",{error:"Ya existe un usuario con este email"})
-            return;
-        }
-        oldUser = await usuarioRepository.getByUsername(nombre);
-        if (oldUser) {
-            redirect(res,"/auth/register",{error:"Ya existe un usuario con este nombre"})
-            return;
-        }
-        const ususario = await usuarioRepository.create({nombre,email,contrasenia,telefono,admin:false})
-        redirect(res,"/auth/login",{message:"Registro exitoso"})
-        
-    } catch (error) {
-        console.error(error);
-        redirect(res,"/auth/register",{error:"Error al registrarse"})
-    }
-}
-
-
 const loginForm = async (req, res) => {
 
     res.render("auth/login", {error: req.query.error, message: req.query.message})
@@ -97,7 +70,6 @@ const logout = async (req, res) => {
 
 export default {
     registerForm,
-    register,
     loginForm,
     login,
     logout

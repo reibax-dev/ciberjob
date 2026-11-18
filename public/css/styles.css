@@ -17,6 +17,7 @@
    13. Footer
    14. Accesibilidad (focus, selección, movimiento reducido)
    15. Responsive (mobile first: base = móvil, se amplía con min-width)
+   16. Vistas nuevas (registro, inscripciones, menú por rol, edición, errores)
    ========================================================================== */
 
 
@@ -932,5 +933,375 @@ textarea:focus-visible {
 
     .grid-tarjetas {
         gap: var(--esp-6);
+    }
+}
+
+
+/* 16. VISTAS NUEVAS =======================================================
+   Registro por tipo, inscripciones, menú según el rol, pantallas de edición,
+   página de error y vistas que todavía no tienen clases (empresa).
+   La página inicial (la que tiene .cards) queda fuera: las reglas generales
+   se acotan con .contenido:not(:has(> .cards)) para no cambiar su disposición.
+   Mobile first: la base es móvil y se amplía con min-width al final.
+   ========================================================================= */
+
+/* --- Menú según el rol ---------------------------------------------------- */
+/* Solo color: la disposición del menú (y de la página inicial) no cambia */
+.nav-links a[href="/auth/logout"] {
+    color: var(--magenta);
+    border-color: var(--magenta);
+}
+
+.nav-links a[href="/auth/logout"]:hover {
+    color: var(--texto-oscuro);
+    background: var(--magenta);
+}
+
+/* Acción de empresa (Publicar oferta) resaltada en amarillo */
+.nav-links a[href="/oferta/new"] {
+    color: var(--amarillo);
+    border-color: var(--amarillo);
+}
+
+.nav-links a[href="/oferta/new"]:hover,
+.nav-links a[href="/oferta/new"][aria-current="page"] {
+    color: var(--texto-oscuro);
+    background: var(--amarillo);
+}
+
+/* --- Elección de registro -------------------------------------------------- */
+#eleccion-registro .tarjeta-titulo {
+    font-size: 1.3rem;
+}
+
+#eleccion-registro .tarjeta-titulo::before {
+    content: "// ";
+    color: var(--texto-suave);
+    text-shadow: none;
+}
+
+#eleccion-registro .btn {
+    flex: 1 1 100%;
+}
+
+/* --- Registro de trabajador y de empresa ----------------------------------- */
+#form-trabajador::after {
+    content: "// ALTA DE TRABAJADOR";
+}
+
+/* --- Marcador «✔ Estás inscrito» ------------------------------------------- */
+/* En las tarjetas de oferta la etiqueta solo se usa para la inscripción */
+.tarjeta-oferta .tarjeta-etiqueta {
+    align-self: flex-start;
+    margin: var(--esp-3) 0 0;
+    padding: var(--esp-1) var(--esp-3);
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    background: var(--verde);
+    box-shadow: 0 0 6px rgba(61, 255, 168, .6), 0 0 18px rgba(61, 255, 168, .25);
+    clip-path: var(--clip-boton);
+}
+
+/* --- Botones de inscribirse y darse de baja -------------------------------- */
+form[action$="/inscribir"] button::before {
+    content: "+";
+    font-weight: 700;
+}
+
+form[action$="/baja"] button::before {
+    content: "×";
+    font-weight: 700;
+}
+
+/* --- Mis ofertas / Mis inscripciones / Ofertas ----------------------------- */
+.titulo-seccion + .btn {
+    margin-bottom: var(--esp-5);
+}
+
+#lista-inscripciones + .enlace-volver,
+.grid-tarjetas + .enlace-volver,
+.detalle + .enlace-volver {
+    margin-bottom: var(--esp-5);
+}
+
+/* --- Lista de inscritos en el detalle de la oferta ------------------------ */
+#lista-inscritos .tarjeta {
+    padding: var(--esp-4);
+}
+
+#lista-inscritos .tarjeta-titulo {
+    font-size: .95rem;
+}
+
+#lista-inscritos .tarjeta-titulo::before {
+    content: "◆ ";
+}
+
+#lista-inscritos .tarjeta-cv {
+    max-height: 9.5em;
+    overflow-y: auto;
+}
+
+/* --- Pantallas de edición -------------------------------------------------- */
+.form-cyber[id^="form-editar"] {
+    background: linear-gradient(135deg, var(--amarillo), var(--linea) 30%, var(--linea) 75%, var(--magenta));
+}
+
+.form-cyber[id^="form-editar"]::after {
+    content: "// MODO EDICIÓN";
+    color: var(--amarillo);
+}
+
+/* Casilla de verificación (Admin) */
+input[type="checkbox"] {
+    justify-self: start;
+    width: 24px;
+    min-height: 24px;
+    height: 24px;
+    margin: 0;
+    accent-color: var(--magenta);
+    border: 0;
+}
+
+/* --- Página de error / 404 ------------------------------------------------- */
+#titulo-error {
+    font-size: clamp(2rem, 9vw, 4rem);
+    color: var(--magenta);
+    text-shadow: var(--glow-magenta), 3px 0 0 rgba(0, 240, 255, .7), -3px 0 0 rgba(246, 233, 75, .5);
+}
+
+#titulo-error::before {
+    content: "! ";
+}
+
+#mensaje-error {
+    font-size: 1.05rem;
+}
+
+/* --- Mensajes de error y de éxito ------------------------------------------ */
+.contenido:not(:has(> .cards)) .alerta {
+    position: relative;
+    clip-path: var(--clip-boton);
+    box-shadow: inset 0 0 24px rgba(0, 0, 0, .4);
+}
+
+.contenido:not(:has(> .cards)) .alerta-error {
+    background: rgba(255, 77, 109, .08);
+}
+
+.contenido:not(:has(> .cards)) .alerta-ok {
+    background: rgba(61, 255, 168, .07);
+}
+
+/* Error suelto de contraseñas (<h3> sin clase en los registros) */
+.contenido:not(:has(> .cards)) > h3:not([class]) {
+    max-width: 640px;
+    padding: var(--esp-3) var(--esp-4);
+    font-family: var(--fuente-mono);
+    font-size: 1rem;
+    color: #ff8ea3;
+    background: rgba(255, 77, 109, .08);
+    border: 1px solid currentColor;
+    border-left-width: 4px;
+}
+
+/* --- Vistas sin clases (empresa, inicio) ---------------------------------- */
+/* Títulos */
+.contenido:not(:has(> .cards)) > h2:not([class]) {
+    position: relative;
+    margin: 0 0 var(--esp-5);
+    padding-bottom: var(--esp-3);
+    text-transform: uppercase;
+}
+
+.contenido:not(:has(> .cards)) > h2:not([class])::before {
+    content: "> ";
+    color: var(--magenta);
+    text-shadow: var(--glow-magenta);
+}
+
+.contenido:not(:has(> .cards)) > h2:not([class])::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: min(260px, 60%);
+    height: 2px;
+    background: linear-gradient(90deg, var(--cian), var(--magenta) 70%, transparent);
+    box-shadow: var(--glow-cian);
+}
+
+.contenido:not(:has(> .cards)) > p:not([class]) {
+    max-width: 720px;
+    color: var(--texto-suave);
+}
+
+/* Formularios sin clase: mismo aspecto que .form-cyber */
+.contenido:not(:has(> .cards)) > form:not([class]) {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    gap: var(--esp-2);
+    max-width: 640px;
+    margin: 0 0 var(--esp-6);
+    padding: var(--esp-6) var(--esp-4) var(--esp-4);
+    background: linear-gradient(135deg, var(--cian), var(--linea) 30%, var(--linea) 75%, var(--magenta));
+    clip-path: var(--clip-tarjeta);
+}
+
+.contenido:not(:has(> .cards)) > form:not([class])::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: -1;
+    clip-path: var(--clip-tarjeta);
+    background: linear-gradient(170deg, var(--superficie-2), var(--superficie) 55%, var(--bg-2));
+}
+
+.contenido:not(:has(> .cards)) > form:not([class]) button {
+    --btn-color: var(--amarillo);
+    --btn-glow: var(--glow-amarillo);
+    justify-self: stretch;
+    margin-top: var(--esp-5);
+    color: var(--texto-oscuro);
+    background: var(--amarillo);
+    font-weight: 700;
+}
+
+.contenido:not(:has(> .cards)) > form:not([class]) button:hover {
+    background: var(--cian);
+    border-color: var(--cian);
+}
+
+/* Enlaces sueltos (Volver al listado, Cancelar, Registrar empresa) */
+.contenido:not(:has(> .cards)) > a:not([class]) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--esp-2);
+    margin: 0 var(--esp-4) var(--esp-5) 0;
+    font-family: var(--fuente-mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.contenido:not(:has(> .cards)) > a:not([class])::before {
+    content: ">>";
+    color: var(--magenta);
+}
+
+/* Listado de empresas (<ul> sin clase) */
+.contenido:not(:has(> .cards)) > ul:not([class]),
+.lista-empresas {
+    list-style: none;
+    margin: 0 0 var(--esp-6);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--esp-3);
+}
+
+.contenido:not(:has(> .cards)) > ul:not([class]) a,
+.lista-empresas a {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-3);
+    min-height: 52px;
+    padding: var(--esp-3) var(--esp-4);
+    font-family: var(--fuente-titulo);
+    font-size: .95rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cian);
+    background: var(--superficie);
+    border: 1px solid var(--linea);
+    border-left: 3px solid var(--cian);
+    clip-path: var(--clip-boton);
+}
+
+.contenido:not(:has(> .cards)) > ul:not([class]) a::before,
+.lista-empresas a::before {
+    content: "▸";
+    color: var(--magenta);
+}
+
+.contenido:not(:has(> .cards)) > ul:not([class]) a:hover,
+.lista-empresas a:hover {
+    color: var(--texto-oscuro);
+    background: var(--cian);
+    text-shadow: none;
+}
+
+/* Botones y enlaces sin clase dentro de .tarjeta-acciones (ficha de empresa) */
+.tarjeta-acciones > a:not([class]) {
+    font-family: var(--fuente-mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.tarjeta-acciones > a[href$="/edit"]:not([class]) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    min-height: 44px;
+    padding: var(--esp-2) var(--esp-4);
+    font-size: .85rem;
+    text-decoration: none;
+    color: var(--cian);
+    background: rgba(0, 240, 255, .06);
+    border: 1px solid var(--cian);
+    clip-path: var(--clip-boton);
+}
+
+.tarjeta-acciones > a[href$="/edit"]:not([class]):hover {
+    color: var(--texto-oscuro);
+    background: var(--cian);
+}
+
+.tarjeta-acciones > form:not([class]) {
+    display: inline-flex;
+    flex: 1 1 auto;
+    margin: 0;
+}
+
+.tarjeta-acciones > form:not([class]) button {
+    --btn-color: var(--rojo);
+    --btn-glow: 0 0 6px rgba(255, 77, 109, .6), 0 0 18px rgba(255, 77, 109, .25);
+    width: 100%;
+    font-size: .85rem;
+    background: rgba(255, 77, 109, .07);
+}
+
+/* --- Responsive de las vistas nuevas -------------------------------------- */
+@media (min-width: 600px) {
+    .contenido:not(:has(> .cards)) > form:not([class]) {
+        padding: var(--esp-6) var(--esp-5) var(--esp-5);
+    }
+
+    .contenido:not(:has(> .cards)) > form:not([class]) button {
+        justify-self: start;
+    }
+
+    .contenido:not(:has(> .cards)) > ul:not([class]),
+    .lista-empresas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #eleccion-registro .btn {
+        flex: 0 0 auto;
+    }
+}
+
+@media (min-width: 900px) {
+    .contenido:not(:has(> .cards)) > ul:not([class]),
+    .lista-empresas {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #eleccion-registro {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 900px;
     }
 }

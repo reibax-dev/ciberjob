@@ -12,9 +12,11 @@
     <div class="tarjeta-acciones">
     <a href="/trabajador/<%=trabajador.idTrabajador%>" class="btn btn-enlace">Visitar</a>
     <a href="/trabajador/<%=trabajador.idTrabajador%>/edit" class="btn btn-enlace">Editar</a>
+    <% if (usuarioSesion.admin) { %>
     <form method="post" action="/trabajador/<%=trabajador.idTrabajador%>/delete" class="form-inline">
         <button class="btn btn-peligro">Eliminar</button>
     </form>
+    <% } %>
     </div>
 
 </article>
