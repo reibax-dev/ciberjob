@@ -1,13 +1,13 @@
 <%- include('../layout/header'); %>
 
-        <h2>Empresas</h2>
+        <h2 class="titulo-seccion">Empresas</h2>
 
-        <a href="/empresa/new">Registrar empresa</a>
+        <a href="/empresa/new" class="btn btn-enlace">Registrar empresa</a>
 
         <% if (empresas.length===0) { %>
-            <p>No hay empresas registradas.</p>
+            <p class="vacio">No hay empresas registradas.</p>
             <% } else { %>
-                <ul>
+                <ul class="lista-empresas" id="lista-empresas">
                     <% for (const empresa of empresas) { %>
                         <li>
                             <a href="/empresa/<%= empresa.idEmpresa %>">

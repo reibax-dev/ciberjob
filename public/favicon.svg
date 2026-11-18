@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <title>CiberJob</title>
+  <!-- Favicon CIBERJOB: placa oscura con esquinas cortadas, "CJ" en neón cian
+       con desfase magenta (aberración cromática) y cursor amarillo del logo -->
+  <defs>
+    <linearGradient id="borde" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff3ec8"/>
+      <stop offset="1" stop-color="#00f0ff"/>
+    </linearGradient>
+  </defs>
+  <!-- Placa -->
+  <path d="M5 1H31V27L27 31H1V5Z" fill="#07080f" stroke="url(#borde)" stroke-width="1.5"/>
+  <!-- Letras: sombra magenta desplazada -->
+  <g fill="none" stroke="#ff3ec8" stroke-width="3.2" stroke-linecap="square" stroke-linejoin="miter" opacity=".9" transform="translate(1 1)">
+    <path d="M14 6.5H8.6L5.8 9.3V18.7L8.6 21.5H14"/>
+    <path d="M19 6.5H26V18.7L23.2 21.5H18.5V17"/>
+  </g>
+  <!-- Letras: trazo cian principal -->
+  <g fill="none" stroke="#00f0ff" stroke-width="3.2" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M14 6.5H8.6L5.8 9.3V18.7L8.6 21.5H14"/>
+    <path d="M19 6.5H26V18.7L23.2 21.5H18.5V17"/>
+  </g>
+  <!-- Cursor amarillo (el "_" que parpadea en el logo) -->
+  <rect x="18" y="25" width="8" height="2.8" fill="#f6e94b"/>
+</svg>

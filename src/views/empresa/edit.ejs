@@ -1,14 +1,14 @@
 <%- include('../layout/header'); %>
 
-        <h2>Editar empresa</h2>
+        <h2 class="titulo-seccion">Editar empresa</h2>
 
-        <form action="/empresa/<%= empresa.idEmpresa %>/edit" method="post">
+        <form action="/empresa/<%= empresa.idEmpresa %>/edit" method="post" class="form-cyber" id="form-editar-empresa">
             <label for="nombre">Nombre de la empresa:</label>
             <input type="text" id="nombre" name="nombre" value="<%= empresa.nombre %>" maxlength="100" required>
 
-            <button type="submit">Guardar cambios</button>
+            <button type="submit" class="btn btn-primario">Guardar cambios</button>
         </form>
 
-        <a href="/empresa/<%= empresa.idEmpresa %>">Cancelar</a>
+        <a href="/empresa/<%= empresa.idEmpresa %>" class="enlace-volver">Cancelar</a>
 
     <%- include('../layout/footer'); %>
