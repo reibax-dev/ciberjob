@@ -1,0 +1,14 @@
+<%- include('../layout/header', { title: 'Mis inscripciones' }); -%>
+
+<h2 class="titulo-seccion"> Mis inscripciones:</h2>
+<% if (ofertas.length === 0) { %>
+    <p class="vacio">Todavía no te has inscrito en ninguna oferta.</p>
+<% } %>
+<section class="grid-tarjetas grid-tarjetas--ofertas" id="lista-inscripciones">
+<% for (const oferta of ofertas) { %>
+    <%- include('tarjetaOferta',{oferta, categoria: oferta.categorias, modalidad: oferta.modalidades, empresa: oferta.empresas, inscrito: idsInscritas.includes(oferta.idOfertas)}) -%>
+<% } %>
+</section>
+
+    <a href="/oferta" class="enlace-volver">Ver todas las ofertas</a>
+<%- include('../layout/footer'); -%>

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import usuarioViewController from "../../controllers/usuario/usuario.view.controller.js";
-import { isAuthenticated } from "../../middlewares/auth.middleware.js";
+import { isAuthenticated, isAdmin } from "../../middlewares/auth.middleware.js";
 import { validarId } from "../../middlewares/id.middleware.js";
 
 const router = Router();
@@ -8,8 +8,8 @@ const router = Router();
 // comprueba que el :id es un número válido antes de llegar al controlador
 router.param("id", validarId);
 
-// todas las rutas de usuarios necesitan sesión iniciada
-router.use(isAuthenticated);
+// la gestión de usuarios es solo para el admin
+router.use(isAuthenticated, isAdmin);
 
 // ------------------ CRUD de user ----------------------------
 

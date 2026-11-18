@@ -1,6 +1,7 @@
 <%- include('../layout/header'); -%>
 
     <h2 class="titulo-seccion"> Nuevo trabajador:</h2>
+    <%- include('../layout/error') -%>
     <% if(currentPath==='/trabajador/new/err' ){ %>
         <h3>Error: Las contraseñas no coinciden.</h3>
         <% } %>

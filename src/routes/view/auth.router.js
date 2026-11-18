@@ -6,7 +6,6 @@ const router = Router();
 
 router.get("/register",authController.registerForm);
 
-router.post("/register",authController.register);
 
 
 router.get("/login",authController.loginForm);

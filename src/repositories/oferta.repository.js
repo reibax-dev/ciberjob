@@ -1,7 +1,14 @@
 
 
 
-import { Oferta } from "../models/index.js";
+import { Oferta, Categoria, Modalidad, Empresa, Trabajador, Usuario } from "../models/index.js";
+
+// relaciones que se cargan con cada oferta (ver models/index.js)
+const relaciones = [
+    { model: Categoria, as: "categorias" },
+    { model: Modalidad, as: "modalidades" },
+    { model: Empresa, as: "empresas" }
+];
 
 
 //? ++++ C ++++
@@ -15,14 +22,19 @@ const create = async (data) => {
 //!? ++++ R +++++
 
 //! ENDPOINT lista de datos
-const getAll = async () => {
-    const ofertas = await Oferta.findAll();
+const getAll = async (filtro = {}) => {
+    const ofertas = await Oferta.findAll({ where: filtro, include: relaciones, order: [["fecha", "DESC"]] });
     return ofertas
 }
 
 //! ENDPOINT dato individual
 const getById = async (id) => {
-    const oferta = await Oferta.findByPk(id)
+    const oferta = await Oferta.findByPk(id, {
+        include: [
+            ...relaciones,
+            { model: Trabajador, as: "trabajadores", include: [{ model: Usuario, as: "usuarios" }] }
+        ]
+    })
     return oferta;
 }
 

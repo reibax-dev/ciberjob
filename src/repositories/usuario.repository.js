@@ -1,6 +1,7 @@
 
 import bcrypt from "bcrypt";
-import { Usuario } from "../models/index.js";
+import { Usuario, Empresa, Trabajador, Oferta, OfertaTrabajador } from "../models/index.js";
+import sequelize from "../config/db.js";
 
 const SALT_ROUNDS = 10;
 
@@ -9,10 +10,10 @@ const SALT_ROUNDS = 10;
 
 // ------------------ C (Create)
 // endpoint para crear dato
-const create = async (data)=>{
+const create = async (data, transaction)=>{
     // la contraseña se guarda cifrada con bcrypt, nunca en claro
     const contrasenia = await bcrypt.hash(data.contrasenia, SALT_ROUNDS);
-    const user = await Usuario.create({...data, contrasenia})
+    const user = await Usuario.create({...data, contrasenia}, {transaction})
     return user;
 }
 
@@ -94,7 +95,22 @@ const modify = async (id,data)=>{
 const remove =async (id)=>{
     const user = await Usuario.findByPk(id);
     if(user){
-        await user.destroy();
+        // borra también su empresa (con sus ofertas) o su trabajador (con sus inscripciones): todo o nada
+        await sequelize.transaction(async (t)=>{
+            const empresa = await Empresa.findOne({where: {idUsuario: user.idUsuario}, transaction: t});
+            if(empresa){
+                const ofertas = await Oferta.findAll({where: {idEmpresa: empresa.idEmpresa}, transaction: t});
+                await OfertaTrabajador.destroy({where: {idOfertas: ofertas.map(o => o.idOfertas)}, transaction: t});
+                await Oferta.destroy({where: {idEmpresa: empresa.idEmpresa}, transaction: t});
+                await empresa.destroy({transaction: t});
+            }
+            const trabajador = await Trabajador.findOne({where: {idUsuario: user.idUsuario}, transaction: t});
+            if(trabajador){
+                await OfertaTrabajador.destroy({where: {idTrabajador: trabajador.idTrabajador}, transaction: t});
+                await trabajador.destroy({transaction: t});
+            }
+            await user.destroy({transaction: t});
+        });
         return user;
     }
     return null;

@@ -1,8 +1,27 @@
 <%- include('../layout/header'); -%>
 
 <section class="detalle">
-    <%- include('tarjetaOferta',{oferta, categoria, modalidad, empresa}) -%>
+    <%- include('tarjetaOferta',{oferta, categoria, modalidad, empresa, inscrito}) -%>
 </section>
+
+<% if (locals.inscritos) { %>
+<h2 class="titulo-seccion">Trabajadores inscritos:</h2>
+<% if (inscritos.length === 0) { %>
+    <p class="vacio">Todavía no se ha inscrito nadie.</p>
+<% } else { %>
+<section class="grid-tarjetas grid-tarjetas--compacta" id="lista-inscritos">
+    <% for (const trabajador of inscritos) { %>
+    <article class="tarjeta tarjeta-trabajador tarjeta--amarillo">
+        <h3 class="tarjeta-titulo"><%= trabajador.usuarios.nombre %></h3>
+        <p class="tarjeta-dato">Email: <%= trabajador.usuarios.email %></p>
+        <p class="tarjeta-dato">Teléfono: <%= trabajador.usuarios.telefono %></p>
+        <p class="tarjeta-etiqueta">Curriculum Vitae</p>
+        <p class="tarjeta-cv"><%= trabajador.cv %></p>
+    </article>
+    <% } %>
+</section>
+<% } %>
+<% } %>
 
     <a href="/oferta" class="enlace-volver">Volver</a>
 <%- include('../layout/footer'); -%>

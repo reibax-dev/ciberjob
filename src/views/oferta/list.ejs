@@ -1,17 +1,20 @@
 <%- include('../layout/header'); -%>
 
-<h2 class="titulo-seccion"> Ofertas de trabajo:</h2>
+<h2 class="titulo-seccion"> <%= usuarioSesion.rol === 'Empresa' ? 'Mis ofertas publicadas' : 'Ofertas de trabajo' %>:</h2>
+<% const puedePublicar = usuarioSesion.admin || usuarioSesion.rol === 'Empresa'; %>
+<% if (puedePublicar) { %>
 <a href="/oferta/new" class="btn btn-enlace">Publicar oferta</a>
+<% } %>
+<% if (ofertas.length === 0) { %>
+    <p class="vacio">No hay ofertas todavía.</p>
+<% } %>
 <section class="grid-tarjetas grid-tarjetas--ofertas" id="lista-ofertas">
-<% for (const oferta of ofertas) {
-    const categoria = categorias.find((c) => c.idCategoria === oferta.idCategoria);
-    const modalidad = modalidades.find((m) => m.idModalidad === oferta.idModalidad);
-    const empresa = empresas.find((e) => e.idEmpresa === oferta.idEmpresa);
-    %>
-    <%- include('tarjetaOferta',{oferta, categoria, modalidad, empresa}) -%>
+<% for (const oferta of ofertas) { %>
+    <%- include('tarjetaOferta',{oferta, categoria: oferta.categorias, modalidad: oferta.modalidades, empresa: oferta.empresas, inscrito: idsInscritas.includes(oferta.idOfertas)}) -%>
 <% } %>
 </section>
 
+<% if (puedePublicar) { %>
 <h2 class="titulo-seccion" id="publicar-oferta"> Nueva oferta de trabajo:</h2>
 <form action="/oferta" method="post" class="form-cyber form-oferta" id="form-oferta">
     <label for="nombre">Nombre del puesto:</label>
@@ -25,6 +28,8 @@
         <% } %>
     </select>
 
+    <%# solo el admin elige empresa; la empresa publica a su nombre %>
+    <% if (locals.empresas) { %>
     <label for="id_empresa">Empresa:</label>
     <select name="id_empresa" id="id_empresa" required>
         <option value="" disabled selected>Selecciona una empresa</option>
@@ -32,6 +37,7 @@
             <option value="<%= empresa.idEmpresa %>"><%= empresa.nombre %></option>
         <% } %>
     </select>
+    <% } %>
 
     <label for="descripcion">Descripción:</label>
     <textarea name="descripcion" id="descripcion" required></textarea>
@@ -55,4 +61,5 @@
 
     <button class="btn btn-primario">Crear oferta</button>
 </form>
+<% } %>
 <%- include('../layout/footer'); -%>
