@@ -1,17 +1,22 @@
 import { Router } from "express";
 import empresaViewController from "../../controllers/empresa/empresa.view.controller.js";
-import { isAuthenticated } from "../../middlewares/auth.middleware.js";
+import { isAuthenticated, isAdmin, isPropioOAdmin } from "../../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get("/", empresaViewController.getAll);
+// registro de empresas: público
 router.get("/new", empresaViewController.createForm);
 router.get("/new/err", empresaViewController.createForm);
-router.get("/:id", empresaViewController.getById);
-router.get("/:id/edit", isAuthenticated, empresaViewController.updateForm);
-
 router.post("/", empresaViewController.create);
-router.post("/:id/edit", isAuthenticated, empresaViewController.update);
-router.post("/:id/delete", isAuthenticated, empresaViewController.remove);
+
+// a partir de aquí hace falta sesión
+router.use(isAuthenticated);
+
+router.get("/", isAdmin, empresaViewController.getAll);
+router.get("/:id", empresaViewController.getById);
+router.get("/:id/edit", isPropioOAdmin("Empresa"), empresaViewController.updateForm);
+
+router.post("/:id/edit", isPropioOAdmin("Empresa"), empresaViewController.update);
+router.post("/:id/delete", isAdmin, empresaViewController.remove);
 
 export default router;

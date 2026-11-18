@@ -2,8 +2,6 @@
 
 <h2 class="titulo-seccion"> Editar trabajador:</h2>
 <form action="/trabajador/<%= trabajador.idTrabajador %>/edit" method="post" class="form-cyber" id="form-editar-trabajador">
-    <label for="id_usuario">Id de usuario:</label>
-    <input type="number" name="idUsuario" id="id_usuario" value="<%= trabajador.idUsuario %>">
     <label for="cv">Curriculum Vitae:</label>
     <textarea name="cv" id="cv"><%= trabajador.cv %></textarea>
 

@@ -7,21 +7,37 @@
         <p class="tarjeta-dato">Empresa: <a href="/empresa/<%= empresa.idEmpresa %>"><%= empresa.nombre %></a></p>
         <% } %>
         <% if (locals.categoria) { %>
-        <p class="tarjeta-dato">Categoría: <a href="/categoria/<%= categoria.idCategoria %>"><%= categoria.nombre %></a></p>
+        <p class="tarjeta-dato">Categoría: <% if (usuarioSesion.admin) { %><a href="/categoria/<%= categoria.idCategoria %>"><%= categoria.nombre %></a><% } else { %><%= categoria.nombre %><% } %></p>
         <% } %>
         <% if (locals.modalidad) { %>
-        <p class="tarjeta-dato">Modalidad: <a href="/modalidad/<%= modalidad.idModalidad %>"><%= modalidad.nombre %></a></p>
+        <p class="tarjeta-dato">Modalidad: <% if (usuarioSesion.admin) { %><a href="/modalidad/<%= modalidad.idModalidad %>"><%= modalidad.nombre %></a><% } else { %><%= modalidad.nombre %><% } %></p>
         <% } %>
         <p class="tarjeta-dato tarjeta-descripcion">Descripción: <%= oferta.descripcion %></p>
         <p class="tarjeta-dato tarjeta-salario">Salario: <%= oferta.salario %> €</p>
         <p class="tarjeta-dato tarjeta-ubicacion">Ubicación: <%= oferta.ubicacion %></p>
         <p class="tarjeta-dato tarjeta-fecha">Fecha: <%= oferta.fecha %></p>
+        <% if (locals.inscrito) { %>
+        <p class="tarjeta-etiqueta">✔ Estás inscrito</p>
+        <% } %>
         <div class="tarjeta-acciones">
         <a href="/oferta/<%=oferta.idOfertas%>" class="btn btn-enlace">Visitar</a>
+        <% if (usuarioSesion.rol === 'Trabajador') { %>
+            <% if (locals.inscrito) { %>
+        <form method="post" action="/oferta/<%=oferta.idOfertas%>/baja" class="form-inline">
+            <button class="btn btn-peligro">Darse de baja</button>
+        </form>
+            <% } else { %>
+        <form method="post" action="/oferta/<%=oferta.idOfertas%>/inscribir" class="form-inline">
+            <button class="btn btn-primario">Inscribirse</button>
+        </form>
+            <% } %>
+        <% } %>
+        <% if (usuarioSesion.admin || (usuarioSesion.rol === 'Empresa' && usuarioSesion.idTipo === oferta.idEmpresa)) { %>
         <a href="/oferta/<%=oferta.idOfertas%>/edit" class="btn btn-enlace">Editar</a>
         <form method="post" action="/oferta/<%=oferta.idOfertas%>/delete" class="form-inline">
             <button class="btn btn-peligro">Eliminar</button>
     </form>
+        <% } %>
         </div>
 
 </article>
