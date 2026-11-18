@@ -9,17 +9,27 @@
         </p>
         <p>ID de usuario asociado: <%= empresa.idUsuario %>
         </p>
+        <p class="tarjeta-dat0">Usuario: <%= usuario.nombre %>
+            </h3>
+            <p class="tarjeta-dato">Email: <%= usuario.email %>
+            </p>
+            <p class="tarjeta-dato">Teléfono: <%= usuario.telefono %>
+            </p>
+            <div class="tarjeta-acciones">
+                <% if(currentPath==='/usuario' ){ %>
+                    <a href="/usuario/<%=usuario.idUsuario%>" class="btn btn-enlace">Visitar</a>
+                <% } %>
+                <a href="/empresa/<%= empresa.idEmpresa %>/edit">
+                    Editar empresa
+                </a>
 
-        <a href="/empresa/<%= empresa.idEmpresa %>/edit">
-            Editar empresa
-        </a>
+                <form action="/empresa/<%= empresa.idEmpresa %>/delete" method="post"
+                    onsubmit="return confirm('¿Seguro que quieres eliminar esta empresa?');">
+                    <button type="submit">Eliminar empresa</button>
+                </form>
 
-        <form action="/empresa/<%= empresa.idEmpresa %>/delete" method="post"
-            onsubmit="return confirm('¿Seguro que quieres eliminar esta empresa?');">
-            <button type="submit">Eliminar empresa</button>
-        </form>
-
-        <a href="/empresa">Volver al listado</a>
+                <a href="/empresa">Volver al listado</a>
+            </div>
     </main>
 
     <%- include('../layout/footer'); %>
