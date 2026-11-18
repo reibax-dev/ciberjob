@@ -1,0 +1,29 @@
+<%- include('layout/header', { title: 'Inicio' }); -%>
+
+<h2>Oficina de busquedas de empleos del fúturo</h2>
+<p>
+    Registro de trabajadores y empresas:
+    Empresas crean ofertas y los trabajadores pueden inscribirse en ellas.
+</p>
+
+<section class="cards">
+    <article class="card">
+        <h3>Empresas</h3>
+        <p>Cada empresa es un usuario que puede crear, ver y editar sus ofertas y los trabajadores inscritos en ellas.</p>
+    </article>
+    <article class="card">
+        <h3>Trabajadores</h3>
+        <p>Cada trabajador es un usuario que puede ver ofertas disponibles, inscribirse en ellas y darse de baja.</p>
+    </article>
+    <article class="card">
+        <h3>Ofertas</h3>
+        <p>Las crean las empresas en función de sus necesidades y los trabajadores pueden inscribirse y darse de baja de ellas.</p>
+        <a href="/login">Iniciar Sesión</a>
+        <a href="/register">Registrarse como Trabajador</a>
+        <a href="/register">Registrarse como Empresa</a>
+    </article>
+</section>
+
+<p>También hay una API REST en <a href="/api">/api</a> (<code>/api/oferta</code>).</p>
+
+<%- include('layout/footer'); -%>
