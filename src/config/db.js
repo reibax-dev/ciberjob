@@ -9,7 +9,7 @@ const DB_USER = process.env.POSTGRES_USER;
 const DB_PASSWORD = process.env.POSTGRES_PASSWORD;
 
 const DB_HOST = process.env.POSTGRES_HOST;
-const DB_PORT = 5432;
+const DB_PORT = process.env.POSTGRES_PORT;
 const DIALECT = "postgres";
 const LOGGING = true;
 

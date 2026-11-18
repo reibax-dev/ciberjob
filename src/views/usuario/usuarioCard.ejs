@@ -7,7 +7,9 @@
     <% if(currentPath === '/usuario'){ %>
     <a href="/usuario/<%=usuario.idUsuario%>" class="btn btn-enlace">Visitar</a>
     <% } %>
+    <a href="/usuario/<%=usuario.idUsuario%>/edit" class="btn btn-enlace">Editar</a>
     <form method="post" action="/usuario/<%=usuario.idUsuario%>/delete" class="form-inline">
         <button class="btn btn-peligro">Eliminar</button>
     </form>
+    </div>
 </article>

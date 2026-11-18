@@ -6,6 +6,8 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_HOST: postgres   # dentro de la red de Docker, el host es el nombre del servicio
+      POSTGRES_PORT: 5432       # dentro de la red de Docker, Postgres siempre escucha en el 5432
+      APP_PORT: 3000            # el servidor escucha en el 3000 dentro del contenedor (APP_PORT de .env es el puerto del host)
     ports:
       - "${APP_PORT}:3000"
     volumes:

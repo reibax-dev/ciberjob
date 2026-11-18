@@ -15,7 +15,7 @@ const getByIdUsuario = async (idUsuario) => {
         const empresa = await Empresa.findOne({where: {idUsuario}});
         return empresa;
     }catch (error){
-        throwError(error);
+        throw error;
     }
 }
 

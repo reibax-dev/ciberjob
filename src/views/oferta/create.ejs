@@ -1,4 +1,4 @@
-
+<%- include('../layout/header', { title: 'Nueva oferta' }); -%>
 
 <h2 class="titulo-seccion"> Nueva oferta de trabajo:</h2>
 <form action="/oferta" method="post" class="form-cyber form-oferta" id="form-oferta">
@@ -8,7 +8,7 @@
     <label for="id_categoria">Categoría:</label>
     <select name="id_categoria" id="id_categoria" required>
         <option value="" disabled selected>Selecciona una categoría</option>
-        <% for (categoria of categorias) { %>
+        <% for (const categoria of categorias) { %>
             <option value="<%= categoria.idCategoria %>"><%= categoria.nombre %></option>
         <% } %>
     </select>
@@ -16,7 +16,7 @@
     <label for="id_empresa">Empresa:</label>
     <select name="id_empresa" id="id_empresa" required>
         <option value="" disabled selected>Selecciona una empresa</option>
-        <% for (empresa of empresas) { %>
+        <% for (const empresa of empresas) { %>
             <option value="<%= empresa.idEmpresa %>"><%= empresa.nombre %></option>
         <% } %>
     </select>
@@ -27,7 +27,7 @@
     <label for="id_modalidad">Modalidad:</label>
     <select name="id_modalidad" id="id_modalidad" required>
         <option value="" disabled selected>Selecciona una modalidad</option>
-        <% for (modalidad of modalidades) { %>
+        <% for (const modalidad of modalidades) { %>
             <option value="<%= modalidad.idModalidad %>"><%= modalidad.nombre %></option>
         <% } %>
     </select>
@@ -43,4 +43,7 @@
 
     <button class="btn btn-primario">Crear oferta</button>
 </form>
+
+<a href="/oferta" class="enlace-volver">Volver</a>
+<%- include('../layout/footer'); -%>
 

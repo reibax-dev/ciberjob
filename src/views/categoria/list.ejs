@@ -1,8 +1,9 @@
 <%- include('../layout/header'); -%>
 
 <h2 class="titulo-seccion"> Categorias:</h2>
+<a href="/categoria/new" class="btn btn-enlace">Nueva categoría</a>
 <section class="grid-tarjetas" id="lista-categorias">
-<% for (categoria of categorias) {%>
+<% for (const categoria of categorias) {%>
     <%- include('tarjetaCategoria',{categoria}) -%>
 <% } %>
 </section>

@@ -1,0 +1,45 @@
+<%- include('../layout/header', { title: 'Editar oferta' }); -%>
+
+<h2 class="titulo-seccion"> Editar oferta de trabajo:</h2>
+<form action="/oferta/<%= oferta.idOfertas %>/edit" method="post" class="form-cyber form-oferta" id="form-editar-oferta">
+    <label for="nombre">Nombre del puesto:</label>
+    <input type="text" name="nombre" id="nombre" maxlength="100" value="<%= oferta.nombre %>" required>
+
+    <label for="id_categoria">Categoría:</label>
+    <select name="id_categoria" id="id_categoria" required>
+        <% for (const categoria of categorias) { %>
+            <option value="<%= categoria.idCategoria %>" <% if (categoria.idCategoria === oferta.idCategoria) { %>selected<% } %>><%= categoria.nombre %></option>
+        <% } %>
+    </select>
+
+    <label for="id_empresa">Empresa:</label>
+    <select name="id_empresa" id="id_empresa" required>
+        <% for (const empresa of empresas) { %>
+            <option value="<%= empresa.idEmpresa %>" <% if (empresa.idEmpresa === oferta.idEmpresa) { %>selected<% } %>><%= empresa.nombre %></option>
+        <% } %>
+    </select>
+
+    <label for="descripcion">Descripción:</label>
+    <textarea name="descripcion" id="descripcion" required><%= oferta.descripcion %></textarea>
+
+    <label for="id_modalidad">Modalidad:</label>
+    <select name="id_modalidad" id="id_modalidad" required>
+        <% for (const modalidad of modalidades) { %>
+            <option value="<%= modalidad.idModalidad %>" <% if (modalidad.idModalidad === oferta.idModalidad) { %>selected<% } %>><%= modalidad.nombre %></option>
+        <% } %>
+    </select>
+
+    <label for="salario">Salario (€):</label>
+    <input type="number" name="salario" id="salario" step="0.01" min="0" value="<%= oferta.salario %>" required>
+
+    <label for="ubicacion">Ubicación:</label>
+    <input type="text" name="ubicacion" id="ubicacion" value="<%= oferta.ubicacion %>" required>
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" name="fecha" id="fecha" value="<%= oferta.fecha %>" required>
+
+    <button class="btn btn-primario">Actualizar oferta</button>
+</form>
+
+    <a href="/oferta/<%= oferta.idOfertas %>" class="enlace-volver">Volver</a>
+<%- include('../layout/footer'); -%>

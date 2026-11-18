@@ -2,8 +2,9 @@
     <h3 class="tarjeta-titulo"><%= categoria.nombre %></h3>
     <p class="tarjeta-dato">Descripción: <%= categoria.descripcion %></p>
     <div class="tarjeta-acciones">
-    <a href="/categoria/<%=categoria.id%>" class="btn btn-enlace">Visitar</a>
-    <form method="post" action="/categoria/<%=categoria.id%>/delete" class="form-inline">
+    <a href="/categoria/<%=categoria.idCategoria%>" class="btn btn-enlace">Visitar</a>
+    <a href="/categoria/<%=categoria.idCategoria%>/edit" class="btn btn-enlace">Editar</a>
+    <form method="post" action="/categoria/<%=categoria.idCategoria%>/delete" class="form-inline">
         <button class="btn btn-peligro">Eliminar</button>
     </form>
     </div>

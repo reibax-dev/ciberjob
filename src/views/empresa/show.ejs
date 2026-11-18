@@ -1,6 +1,5 @@
 <%- include('../layout/header'); %>
 
-    <main>
         <h2>
             <%= empresa.nombre %>
         </h2>
@@ -9,8 +8,8 @@
         </p>
         <p>ID de usuario asociado: <%= empresa.idUsuario %>
         </p>
-        <p class="tarjeta-dat0">Usuario: <%= usuario.nombre %>
-            </h3>
+        <p class="tarjeta-dato">Usuario: <%= usuario.nombre %>
+            </p>
             <p class="tarjeta-dato">Email: <%= usuario.email %>
             </p>
             <p class="tarjeta-dato">Teléfono: <%= usuario.telefono %>
@@ -30,6 +29,5 @@
 
                 <a href="/empresa">Volver al listado</a>
             </div>
-    </main>
 
     <%- include('../layout/footer'); %>

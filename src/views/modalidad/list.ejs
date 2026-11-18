@@ -1,8 +1,9 @@
 <%- include('../layout/header'); -%>
 
 <h2 class="titulo-seccion"> Modalidades:</h2>
+<a href="/modalidad/new" class="btn btn-enlace">Nueva modalidad</a>
 <section class="grid-tarjetas grid-tarjetas--compacta" id="lista-modalidades">
-<% for (modalidad of modalidades) {%>
+<% for (const modalidad of modalidades) {%>
     <%- include('tarjetaModalidad',{modalidad}) -%>
 <% } %>
 </section>

@@ -1,0 +1,13 @@
+<%- include('../layout/header', { title: 'Editar modalidad' }); -%>
+
+<h2 class="titulo-seccion"> Editar modalidad:</h2>
+<form action="/modalidad/<%= modalidad.idModalidad %>/edit" method="post" class="form-cyber" id="form-editar-modalidad">
+    <label for="nombre">Nombre de modalidad</label>
+    <input type="text" name="nombre" id="nombre" value="<%= modalidad.nombre %>" required>
+
+
+    <button class="btn btn-primario">Actualizar</button>
+</form>
+
+    <a href="/modalidad/<%= modalidad.idModalidad %>" class="enlace-volver">Volver</a>
+<%- include('../layout/footer'); -%>

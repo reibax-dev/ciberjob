@@ -47,6 +47,9 @@ const update =async (req,res)=>{
 const updateForm = async (req,res)=>{
     const idCategoria = parseInt(req.params.id);
     const categoria  = await categoriaRepository.getById(idCategoria);
+    if(!categoria){
+        return res.status(404).render("layout/errorPagina", {status: 404, mensaje: "Categoría no encontrada."});
+    }
     res.render("categoria/update", {categoria})
 }
 

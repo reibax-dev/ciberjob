@@ -1,0 +1,20 @@
+<%- include('../layout/header', { title: 'Editar usuario' }); -%>
+
+<h2 class="titulo-seccion"> Editar usuario:</h2>
+<form action="/usuario/<%= usuario.idUsuario %>/edit" method="post" class="form-cyber" id="form-editar-usuario">
+    <label for="nom_usuario">Nombre de usuario</label>
+    <input type="text" name="nombre" id="nom_usuario" value="<%= usuario.nombre %>" required>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="<%= usuario.email %>" required>
+    <label for="telefono">Teléfono</label>
+    <input type="tel" id="telefono" name="telefono" value="<%= usuario.telefono %>" required>
+    <label for="admin">Admin</label>
+    <input type="checkbox" id="admin" name="admin" value="true" <% if (usuario.admin) { %>checked<% } %>>
+    <label for="password">Nueva contraseña (déjala vacía para no cambiarla)</label>
+    <input type="password" name="contrasenia" id="password">
+
+    <button class="btn btn-primario">Actualizar</button>
+</form>
+
+    <a href="/usuario/<%= usuario.idUsuario %>" class="enlace-volver">Volver</a>
+<%- include('../layout/footer'); -%>

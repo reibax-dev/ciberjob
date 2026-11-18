@@ -27,15 +27,16 @@ INSERT INTO public.modalidades (nombre) VALUES
 ('Presencial');
 
 -- Usuarios (ID 1: Admin | IDs 2-4: Empresas | IDs 5-8: Trabajadores)
+-- Contraseña de todos los usuarios de ejemplo: 1234 (hash bcrypt, 12 rondas)
 INSERT INTO public.usuarios (nombre, contrasenia, email, telefono, admin) VALUES
-('Admin Sistema', '$2b$12$eImiTXuWVxfM37uY4JANjQ==', 'admin@portalempleo.es', '+34 600 000 001', true),
-('Laura Gómez', '$2b$12$KIX9s8d7f6g5h4j3k2l1zO==', 'rrhh@techbilbao.es', '+34 944 111 222', false),
-('Carlos Ruiz', '$2b$12$MNB8v7c6x5z4a3s2d1f0gH==', 'talento@innovanorte.com', '+34 910 333 444', false),
-('Elena Martín', '$2b$12$QWE1r2t3y4u5i6o7p8a9sD==', 'empleo@datavision.es', '+34 932 555 666', false),
-('Javier Pérez', '$2b$12$ZXC9v8b7n6m5l4k3j2h1gF==', 'javier.perez@email.com', '+34 611 222 333', false),
-('Sofía Navarro', '$2b$12$ASD4f5g6h7j8k9l0z1x2cV==', 'sofia.navarro@email.com', '+34 622 333 444', false),
-('Miguel Torres', '$2b$12$RTY7u8i9o0p1a2s3d4f5gH==', 'miguel.torres@email.com', '+34 633 444 555', false),
-('Ana Belén Castro', '$2b$12$UIO3p4a5s6d7f8g9h0j1kL==', 'ana.castro@email.com', '+34 644 555 666', false);
+('Admin Sistema', '$2b$12$zsq1D8axG5H0j9RXj9jh0ey8wpUwmXRq.62XrpSlOePhFmU5i8zf2', 'admin@portalempleo.es', '+34 600 000 001', true),
+('Laura Gómez', '$2b$12$gzTM01XWykgHBVcLt63FWOzjLn9YLAb.5FRSjGJs98W82rZszIUQu', 'rrhh@techbilbao.es', '+34 944 111 222', false),
+('Carlos Ruiz', '$2b$12$HEJiHqWQLu936l5MAaC.SOwknf0u24/jUGanNpWEpOSNwNfWMUVRa', 'talento@innovanorte.com', '+34 910 333 444', false),
+('Elena Martín', '$2b$12$Jw3RhMOv0ABTY2jLfZXiw.9LfqVWWVcXcwoynXkQwBJ99b2LuDJZC', 'empleo@datavision.es', '+34 932 555 666', false),
+('Javier Pérez', '$2b$12$AWjIDE1vsDl1LaYpYx4CH.uExDy/urf4U.kX6otdHsOAar.icND6W', 'javier.perez@email.com', '+34 611 222 333', false),
+('Sofía Navarro', '$2b$12$IbmDCo8OYKtPhgLyqXwlDu4aWbORZSFi4Du/8Eh38A2U8DsQwYPBO', 'sofia.navarro@email.com', '+34 622 333 444', false),
+('Miguel Torres', '$2b$12$UJeUAIZAbpxas9IFoDzo3u1UA4.4TXC8TPkJN3fymOwbNmUbs2.2a', 'miguel.torres@email.com', '+34 633 444 555', false),
+('Ana Belén Castro', '$2b$12$c.zDZ14XsAsu95w7Mi6jQOGRJYKYl1tHqBuNvS/NRB29fKwTlCLhu', 'ana.castro@email.com', '+34 644 555 666', false);
 
 -- Empresas (IDs 1 al 3, asociadas a usuarios 2, 3 y 4)
 INSERT INTO  public.empresas(id_usuario, nombre) VALUES

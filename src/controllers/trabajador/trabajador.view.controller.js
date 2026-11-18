@@ -12,7 +12,7 @@ const create = async (req,res)=>{
     const { nombre, email, contrasenia, contraseniaRepeat, telefono } = req.body;
     let idUser;
     if (contrasenia !== contraseniaRepeat) {
-        res.redirect("trabajador/new/err");
+        return res.redirect("/trabajador/new/err");
     } else {
         const user = await usuarioRepository.create({
             nombre,
@@ -53,6 +53,9 @@ const getAll = async(req, res) => {
 const getById =async (req, res) => {
     const id = parseInt(req.params.id);
     const trabajador = await trabajadorRepository.getById(id);
+    if(!trabajador){
+        return res.status(404).render("layout/errorPagina", {status: 404, mensaje: "Trabajador no encontrado."});
+    }
     const usuario = await usuarioRepository.getById(trabajador.idUsuario);
     res.render("trabajador/show",{trabajador,usuario})
 };
@@ -74,6 +77,9 @@ const update =async (req,res)=>{
 const updateForm = async (req,res)=>{
     const id = parseInt(req.params.id);
     const trabajador  = await trabajadorRepository.getById(id);
+    if(!trabajador){
+        return res.status(404).render("layout/errorPagina", {status: 404, mensaje: "Trabajador no encontrado."});
+    }
     res.render("trabajador/update", {trabajador})
 }
 
