@@ -1,6 +1,8 @@
 <%- include('../layout/header'); -%>
 
-    <%- include('trabajadorCard',{trabajador}) -%>
+<section class="detalle">
+    <%- include('trabajadorCard',{trabajador,usuario}) -%>
+</section>
 
-    <a href="/trabajador">Volver</a>
+    <a href="/trabajador" class="enlace-volver">Volver</a>
 <%- include('../layout/footer'); -%>

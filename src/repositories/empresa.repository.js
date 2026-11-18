@@ -1,32 +1,60 @@
-import { Empresa } from "../models/index.js";
+import Empresa from "../models/empresa.model.js";
 
-
-// ------------------ CRUD de empresa ----------------------------
-
-// ------------------ C (Create)
-// endpoint para crear dato
-const create = async (data)=>{
-    const empresa = await Empresa.create(data)
-    return empresa;
-}
-
-
-// ------------------ R (Read)---------------------------------------------
-// endpoint lista de datos
-const getAll = async() => {
+async function getAll() {
     const empresas = await Empresa.findAll();
     return empresas;
-};
+}
 
-// endpoint dato individual
-const getById = async (id) => {
-    const empresa = await Empresa.findByPk(id);
+async function getById(idEmpresa) {
+    const empresaEncontrada = await Empresa.findByPk(idEmpresa);
+    return empresaEncontrada;
+}
+
+const getByIdUsuario = async (idUsuario) => {
+    try{
+        const empresa = await Empresa.findOne({where: {idUsuario}});
+        return empresa;
+    }catch (error){
+        throwError(error);
+    }
+}
+
+async function create(datosEmpresa) {
+    const nuevaEmpresa = await Empresa.create(datosEmpresa);
+    return nuevaEmpresa;
+}
+
+async function update(idEmpresa, datosEmpresa) {
+    const empresa = await Empresa.findByPk(idEmpresa);
+
+    if (empresa === null) {
+        return null;
+    }
+
+    empresa.nombre = datosEmpresa.nombre;
+
+    await empresa.save();
+
     return empresa;
-};
+}
 
+async function remove(idEmpresa) {
+    const empresa = await Empresa.findByPk(idEmpresa);
+
+    if (empresa === null) {
+        return null;
+    }
+
+    await empresa.destroy();
+
+    return empresa;
+}
 
 export default {
-    create,
     getAll,
-    getById
-}
+    getById,
+    getByIdUsuario,
+    create,
+    update,
+    remove
+};

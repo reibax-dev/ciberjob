@@ -1,12 +1,23 @@
 <%- include('../layout/header'); -%>
 
-<h2> Nuevo trabajador:</h2>
-<form action="/trabajador" method="post">
-    <label for="id_usuario">Id de usuario:</label>
-    <input type="number" name="idUsuario" id="id_usuario">
-    <label for="cv">Curriculum Vitae:</label>
-    <textarea name="cv" id="cv"></textarea>
-
-    <button>Crear</button>
-</form>
-<%- include('../layout/footer'); -%>
+    <h2 class="titulo-seccion"> Nuevo trabajador:</h2>
+    <% if(currentPath==='/trabajador/new/err' ){ %>
+        <h3>Error: Las contraseñas no coinciden.</h3>
+        <% } %>
+            <form action="/trabajador" method="post" class="form-cyber" id="form-trabajador">
+                <label for="nom_usuario">Nombre de usuario</label>
+                <input type="text" name="nombre" id="nom_usuario" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" required>
+                <label for="password">Contraseña</label>
+                <input type="password" name="contrasenia" id="password" required>
+                <label for="passwordRepeat">Repetir Contraseña</label>
+                <input type="password" name="contraseniaRepeat" id="passwordRepeat" required>
+                <!-- Trabajador-->
+                <label for="cv">Curriculum Vitae:</label>
+                <textarea name="cv" id="cv"></textarea>
+                <button class="btn btn-primario" type="submit">Crear</button>
+            </form>
+            <%- include('../layout/footer'); -%>

@@ -1,15 +1,17 @@
 
-<article class="tarjeta-oferta">
-
-    <form action="/oferta">
-        <h3><%= oferta.nombre %></h3>
-        <p>Descripción: <%= oferta.descripcion %></p>
-        <p>Salario: <%= oferta.salario %> €</p>
-        <p>Ubicación: <%= oferta.ubicacion %></p>
-        <p>Fecha: <%= oferta.fecha %></p>
-        <a href="/oferta/<%=oferta.idOfertas%>">Visitar</a>
-        <form method="post" action="/oferta/<%=oferta.idOfertas%>/delete">
-            <button>Eliminar</button>
+<article class="tarjeta-oferta tarjeta tarjeta--magenta">
+<!-- 
+    <form action="/oferta"> -->
+        <h3 class="tarjeta-titulo"><%= oferta.nombre %></h3>
+        <p class="tarjeta-dato tarjeta-descripcion">Descripción: <%= oferta.descripcion %></p>
+        <p class="tarjeta-dato tarjeta-salario">Salario: <%= oferta.salario %> €</p>
+        <p class="tarjeta-dato tarjeta-ubicacion">Ubicación: <%= oferta.ubicacion %></p>
+        <p class="tarjeta-dato tarjeta-fecha">Fecha: <%= oferta.fecha %></p>
+        <div class="tarjeta-acciones">
+        <a href="/oferta/<%=oferta.idOfertas%>" class="btn btn-enlace">Visitar</a>
+        <form method="post" action="/oferta/<%=oferta.idOfertas%>/delete" class="form-inline">
+            <button class="btn btn-peligro">Eliminar</button>
     </form>
+        </div>
 
 </article>

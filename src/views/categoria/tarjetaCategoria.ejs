@@ -1,9 +1,11 @@
-<article class="tarjeta-categoria">
-    <h3><%= categoria.nombre %></h3>
-    <p>Descripción: <%= categoria.descripcion %></p>
-    <a href="/categoria/<%=categoria.id%>">Visitar</a>
-    <form method="post" action="/categoria/<%=categoria.id%>/delete">
-        <button>Eliminar</button>
+<article class="tarjeta-categoria tarjeta tarjeta--cian">
+    <h3 class="tarjeta-titulo"><%= categoria.nombre %></h3>
+    <p class="tarjeta-dato">Descripción: <%= categoria.descripcion %></p>
+    <div class="tarjeta-acciones">
+    <a href="/categoria/<%=categoria.id%>" class="btn btn-enlace">Visitar</a>
+    <form method="post" action="/categoria/<%=categoria.id%>/delete" class="form-inline">
+        <button class="btn btn-peligro">Eliminar</button>
     </form>
+    </div>
 
 </article>

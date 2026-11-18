@@ -17,7 +17,7 @@
 DROP TABLE IF EXISTS public.ofertas_trabajadores CASCADE;
 DROP TABLE IF EXISTS public.ofertas CASCADE;
 DROP TABLE IF EXISTS public.trabajadores CASCADE;
-DROP TABLE IF EXISTS public.empresa CASCADE;
+DROP TABLE IF EXISTS public.empresas CASCADE;
 DROP TABLE IF EXISTS public.usuarios CASCADE;
 DROP TABLE IF EXISTS public.modalidades CASCADE;
 DROP TABLE IF EXISTS public.categorias CASCADE;
@@ -43,15 +43,15 @@ CREATE TABLE public.usuarios (
     admin boolean NOT NULL
 );
 
-CREATE TABLE public.empresa (
+CREATE TABLE public.empresas (
     id_empresa integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_usuario integer NOT NULL UNIQUE REFERENCES public.usuarios (id_usuario),
+    id_usuario integer NOT NULL UNIQUE REFERENCES public.usuarios (id_usuario) ON DELETE CASCADE ,
     nombre character varying(100) NOT NULL
 );
 
 CREATE TABLE public.trabajadores (
     id_trabajador integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_usuario integer NOT NULL UNIQUE REFERENCES public.usuarios (id_usuario),
+    id_usuario integer NOT NULL UNIQUE REFERENCES public.usuarios (id_usuario) ON DELETE CASCADE ,
     "cv" character varying(250)
 );
 
@@ -59,16 +59,16 @@ CREATE TABLE public.ofertas (
     id_ofertas integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre character varying(100) NOT NULL,
     id_categoria integer NOT NULL REFERENCES public.categorias (id_categoria),
-    id_empresa integer NOT NULL REFERENCES public.empresa (id_empresa),
+    id_empresa integer NOT NULL REFERENCES public.empresas (id_empresa) ON DELETE CASCADE,
     descripcion text NOT NULL,
     id_modalidad integer NOT NULL REFERENCES public.modalidades (id_modalidad),
-    salario money NOT NULL,         /* numeric(10, 2) */
+    salario numeric (10, 2) NOT NULL,         /* numeric(10, 2) */
     ubicacion text NOT NULL,
     fecha date NOT NULL
 );
 
 CREATE TABLE public.ofertas_trabajadores (
-    id_ofertas integer NOT NULL REFERENCES public.ofertas (id_ofertas),
-    id_trabajador integer NOT NULL REFERENCES public.trabajadores (id_trabajador),
+    id_ofertas integer NOT NULL REFERENCES public.ofertas (id_ofertas) ON DELETE CASCADE,
+    id_trabajador integer NOT NULL REFERENCES public.trabajadores (id_trabajador) ON DELETE CASCADE,
     PRIMARY KEY (id_ofertas, id_trabajador)
 );

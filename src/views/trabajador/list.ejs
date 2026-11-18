@@ -1,7 +1,11 @@
 <%- include('../layout/header'); -%>
 
-<h2> Trabajadores:</h2>
-<% for (trabajador of trabajadores) {%>
-    <%- include('trabajadorCard',{trabajador}) -%>
+<h2 class="titulo-seccion"> Trabajadores:</h2>
+<section class="grid-tarjetas" id="lista-trabajadores">
+<% for (trabajador of trabajadores) {
+    const usuario = usuarios.find((e) => e.idUsuario === trabajador.idUsuario);
+    %>
+    <%- include('trabajadorCard',{trabajador,usuario}) -%>
 <% } %>
+</section>
 <%- include('../layout/footer'); -%>
