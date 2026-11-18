@@ -1,0 +1,15 @@
+<%- include('../layout/header', { title: 'Editar categoría' }); -%>
+
+<h2 class="titulo-seccion"> Editar categoría:</h2>
+<form action="/categoria/<%= categoria.idCategoria %>/edit" method="post" class="form-cyber" id="form-editar-categoria">
+    <label for="nombre">Nombre de categoría</label>
+    <input type="text" name="nombre" id="nombre" value="<%= categoria.nombre %>" required>
+    <label for="descripcion">Descripción</label>
+    <textarea  id="descripcion" name="descripcion"><%= categoria.descripcion %></textarea>
+
+
+    <button class="btn btn-primario">Actualizar</button>
+</form>
+
+    <a href="/categoria/<%= categoria.idCategoria %>" class="enlace-volver">Volver</a>
+<%- include('../layout/footer'); -%>

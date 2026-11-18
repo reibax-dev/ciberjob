@@ -1,8 +1,10 @@
 <%- include('../layout/header'); -%>
 
 <h2 class="titulo-seccion"> Usuarios:</h2>
+<a href="/usuario/new" class="btn btn-enlace">Nuevo usuario</a>
 <section class="grid-tarjetas" id="lista-usuarios">
-<% for (usuario of usuarios) {%>
+<% for (const usuario of usuarios) {%>
     <%- include('usuarioCard',{usuario}) -%>
 <% } %>
+</section>
 <%- include('../layout/footer'); -%>

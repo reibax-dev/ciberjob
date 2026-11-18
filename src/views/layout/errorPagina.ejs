@@ -1,0 +1,10 @@
+<%- include('header', { title: 'Error ' + status }); -%>
+
+<h2 class="titulo-seccion">Error <%= status %></h2>
+<p class="error alerta alerta-error"><%= mensaje %></p>
+
+<div class="enlaces-pie">
+<a href="/" class="enlace-volver">Volver al inicio</a>
+</div>
+
+<%- include('footer'); -%>

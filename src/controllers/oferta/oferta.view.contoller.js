@@ -27,8 +27,13 @@ const create = async (req, res) => {
     res.redirect("/oferta/"+ oferta.idOfertas);
 }
 
-const createForm = (req, res) => {
-    res.render("oferta/create")
+const createForm = async (req, res) => {
+    const [categorias, modalidades, empresas] = await Promise.all([
+        categoriaRepository.getAll(),
+        modalidadRepository.getAll(),
+        empresaRepository.getAll()
+    ]);
+    res.render("oferta/create", {categorias, modalidades, empresas})
 }
 
 //!? ++++ R +++++
@@ -49,7 +54,15 @@ const getById = async (req, res) => {
     const id = parseInt(req.params.id);
     // const oferta = ofertas.find ( o => o.id === id)
     const oferta = await ofertaRepository.getById(id);
-    res.render("oferta/show", {oferta});
+    if (!oferta) {
+        return res.status(404).render("layout/errorPagina", {status: 404, mensaje: "Oferta no encontrada."});
+    }
+    const [categoria, modalidad, empresa] = await Promise.all([
+        categoriaRepository.getById(oferta.idCategoria),
+        modalidadRepository.getById(oferta.idModalidad),
+        empresaRepository.getById(oferta.idEmpresa)
+    ]);
+    res.render("oferta/show", {oferta, categoria, modalidad, empresa});
 }
 
 //? ++++ U ++++
@@ -80,7 +93,15 @@ const updateForm = async (req, res) => {
     const id = parseInt(req.params.id);
     // const oferta = ofertas.find ( u => u.id === id);
     const oferta = await ofertaRepository.getById(id); 
-    res.render("oferta/update", {oferta});
+    if (!oferta) {
+        return res.status(404).render("layout/errorPagina", {status: 404, mensaje: "Oferta no encontrada."});
+    }
+    const [categorias, modalidades, empresas] = await Promise.all([
+        categoriaRepository.getAll(),
+        modalidadRepository.getAll(),
+        empresaRepository.getAll()
+    ]);
+    res.render("oferta/update", {oferta, categorias, modalidades, empresas});
 }
 
 //? ++++ D ++++

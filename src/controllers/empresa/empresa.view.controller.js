@@ -45,7 +45,7 @@ async function create(req, res) {
             "El nombre debe tener entre 1 y 100 caracteres."
         );
     } else if (contrasenia !== contraseniaRepeat) {
-        res.redirect("empresa/new/");
+        return res.redirect("/empresa/new/err");
     }
 
     /* if (!Number.isInteger(idUsuario) || idUsuario <= 0) {
@@ -69,7 +69,7 @@ async function create(req, res) {
     }
     nom_empresa.trim()
     const empresaCreada = await empresaRepository.create({
-        nombre: nom_empresa,
+        nombre: nom_empresa.trim(),
         idUsuario: idUser
     });
 

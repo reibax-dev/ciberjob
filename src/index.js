@@ -5,6 +5,8 @@ import express from 'express';              //* Importa el framework Express par
 import cors from 'cors';
 import router from './routes/router.js';
 import sequelize from './config/db.js';
+import session from 'express-session';      //* Sesión de usuario para el login
+import { getErrorMessage, getErrorStatus } from './utils/errors.js';
 
 dotenv.config()                             //* Carga las variables del archivo .env y las introduce en el objeto global 'process.env'
 
@@ -14,6 +16,11 @@ const app = express();                      //* Inicializa la aplicación de Exp
 app.use(cors());
 app.use(express.json());                    //* Define el puerto: usa el valor del archivo .env (process.env.PORT) o, si no existe, el puerto 3000 por defecto
 app.use(express.urlencoded())               //* permite leer el body de los POST en formularios
+app.use(session({                           //* Guarda el usuario logueado en req.session (cookie de sesión)
+    secret: process.env.JWT_SECRET || "ciberjob",
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(express.static("public"));
 
 app.set("views", "./src/views");
@@ -21,10 +28,26 @@ app.set("view engine", "ejs");
 
 app.use((req, res, next) => {
   res.locals.currentPath = req.path;        // Current path
+  res.locals.usuarioSesion = req.session.usuario; // Usuario logueado (o undefined) para las vistas
   next();
 });
 const PORT = process.env.APP_PORT || 3000;      //* Pone al servidor a escuchar peticiones en el puerto definido y ejecuta una función cuando arranca con éxito
 app.use("/", router);
+
+//! Página 404: ninguna ruta ha respondido
+app.use((req, res) => {
+    res.status(404).render("layout/errorPagina", { status: 404, mensaje: "Página no encontrada" });
+});
+
+//! Errores: mensaje legible, sin enseñar la traza al usuario
+app.use((error, req, res, next) => {
+    console.error(error);
+    if (res.headersSent) {
+        return next(error);
+    }
+    const status = getErrorStatus(error);
+    res.status(status).render("layout/errorPagina", { status, mensaje: getErrorMessage(error) });
+});
 
 async function startServer() {
     const maxIntentos = 5

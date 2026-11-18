@@ -45,6 +45,9 @@ const update = async (req,res)=>{
 const updateForm = async (req,res)=>{
     const idModalidad = parseInt(req.params.id);
     const modalidad  = await modalidadRepository.getById(idModalidad);
+    if(!modalidad){
+        return res.status(404).render("layout/errorPagina", {status: 404, mensaje: "Modalidad no encontrada."});
+    }
     res.render("modalidad/update", {modalidad})
 }
 

@@ -1,9 +1,14 @@
 <%- include('../layout/header'); -%>
 
 <h2 class="titulo-seccion"> Ofertas de trabajo:</h2>
+<a href="/oferta/new" class="btn btn-enlace">Publicar oferta</a>
 <section class="grid-tarjetas grid-tarjetas--ofertas" id="lista-ofertas">
-<% for (oferta of ofertas) {%>
-    <%- include('tarjetaOferta',{oferta}) -%>
+<% for (const oferta of ofertas) {
+    const categoria = categorias.find((c) => c.idCategoria === oferta.idCategoria);
+    const modalidad = modalidades.find((m) => m.idModalidad === oferta.idModalidad);
+    const empresa = empresas.find((e) => e.idEmpresa === oferta.idEmpresa);
+    %>
+    <%- include('tarjetaOferta',{oferta, categoria, modalidad, empresa}) -%>
 <% } %>
 </section>
 
@@ -15,7 +20,7 @@
     <label for="id_categoria">Categoría:</label>
     <select name="id_categoria" id="id_categoria" required>
         <option value="" disabled selected>Selecciona una categoría</option>
-        <% for (categoria of categorias) { %>
+        <% for (const categoria of categorias) { %>
             <option value="<%= categoria.idCategoria %>"><%= categoria.nombre %></option>
         <% } %>
     </select>
@@ -23,7 +28,7 @@
     <label for="id_empresa">Empresa:</label>
     <select name="id_empresa" id="id_empresa" required>
         <option value="" disabled selected>Selecciona una empresa</option>
-        <% for (empresa of empresas) { %>
+        <% for (const empresa of empresas) { %>
             <option value="<%= empresa.idEmpresa %>"><%= empresa.nombre %></option>
         <% } %>
     </select>
@@ -34,7 +39,7 @@
     <label for="id_modalidad">Modalidad:</label>
     <select name="id_modalidad" id="id_modalidad" required>
         <option value="" disabled selected>Selecciona una modalidad</option>
-        <% for (modalidad of modalidades) { %>
+        <% for (const modalidad of modalidades) { %>
             <option value="<%= modalidad.idModalidad %>"><%= modalidad.nombre %></option>
         <% } %>
     </select>
